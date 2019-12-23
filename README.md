@@ -34,6 +34,7 @@
 
 - Audio Footsteps
 - Primitive kind of GUI as Framework-able set up
+- Ability to pick up items from the floor
 
 ##### Fixed
 

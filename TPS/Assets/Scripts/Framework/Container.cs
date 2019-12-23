@@ -34,8 +34,9 @@ public class Container: MonoBehaviour {
 			return value;
 		}
 
-		public int Put(int value) {
-			return -1;
+
+		public  void Set(int value) {
+			Maximum += value;
 		}
 	}
 
@@ -52,7 +53,15 @@ public class Container: MonoBehaviour {
 		return items.Last().Id;
 	}
 
+	public void Put(string name, int value) {
+		var containerItem = items.Where(x =>  name == x.Name).FirstOrDefault();
+		if(containerItem == null) {
+			return;
+		}
 
+		containerItem.Set(value);
+
+	}
 
 	public int TakeFromContainer(Guid id, int amount) {
 		var containerItem = items.Where(x =>  id == x.Id).FirstOrDefault();

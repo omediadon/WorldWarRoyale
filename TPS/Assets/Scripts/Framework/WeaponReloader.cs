@@ -10,6 +10,8 @@ public class WeaponReloader: MonoBehaviour {
 	int maxAmmo;
 	[SerializeField]
 	Container inventory;
+	[SerializeField]
+	EWeaponType weaponType;
 
 	[SerializeField]
 	int shotsFiredInClip;
@@ -23,7 +25,7 @@ public class WeaponReloader: MonoBehaviour {
 	}
 
 	private void Instance_OnLocalPlayerJoined(PlayerController obj) {
-		containerItemId = inventory.Add(this.name, maxAmmo);
+		containerItemId = inventory.Add(weaponType.ToString(), maxAmmo);
 	}
 
 	public int RoundsRemainingInClip {
@@ -66,13 +68,15 @@ public class WeaponReloader: MonoBehaviour {
 		shotsFiredInClip -= amount;
 
 		IsReloading = false;
-		if(OnAmmoChanged != null) {
-			OnAmmoChanged();
-		}
+		HandleAmmoChange();
 	}
 
 	public void TakeFromClip(int rounds) {
 		shotsFiredInClip += rounds;
+		HandleAmmoChange();
+	}
+
+	public void HandleAmmoChange() {
 		if(OnAmmoChanged != null) {
 			OnAmmoChanged();
 		}
