@@ -16,6 +16,8 @@ public class WeaponReloader: MonoBehaviour {
 
 	Guid containerItemId;
 
+	public event Action OnAmmoChanged;
+
 	private void Awake() {
 		GameManager.Instance.Timer.Add(() => containerItemId = inventory.Add(this.name, maxAmmo), 0.01f);
 	}
@@ -23,6 +25,13 @@ public class WeaponReloader: MonoBehaviour {
 	public int RoundsRemainingInClip {
 		get {
 			return clipSize - shotsFiredInClip;
+		}
+	}
+
+	public int RoundsRemainingInInventory {
+		get {
+			return inventory.LeftInInventory(containerItemId);
+			;
 		}
 	}
 
@@ -54,9 +63,15 @@ public class WeaponReloader: MonoBehaviour {
 		shotsFiredInClip -= amount;
 
 		IsReloading = false;
+		if(OnAmmoChanged != null) {
+			OnAmmoChanged();
+		}
 	}
 
 	public void TakeFromClip(int rounds) {
 		shotsFiredInClip += rounds;
+		if(OnAmmoChanged != null) {
+			OnAmmoChanged();
+		}
 	}
 }

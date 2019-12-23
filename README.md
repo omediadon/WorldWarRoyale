@@ -33,6 +33,7 @@
 ##### Added
 
 - Audio Footsteps
+- Primitive kind of GUI as Framework-able set up
 
 
 [0.0.1]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.2...0.0.3.0

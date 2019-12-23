@@ -11,7 +11,7 @@ public class Container: MonoBehaviour {
 		public string Name;
 		public int Maximum;
 
-		private int amountTaken;
+		private int amountTaken = 0;
 
 		public ContainerItem() {
 			Id = Guid.NewGuid();
@@ -65,5 +65,15 @@ public class Container: MonoBehaviour {
 		}
 
 		return containerItem.Get(amount);
+	}
+
+	public int LeftInInventory(Guid itemId) {
+		var containerItem = items.Where(x => x.Id == itemId).FirstOrDefault();
+		if(containerItem == null) {
+			return 0;
+		}
+
+		return containerItem.AmountLeft;
+
 	}
 }

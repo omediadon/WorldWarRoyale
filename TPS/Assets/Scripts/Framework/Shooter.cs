@@ -17,7 +17,7 @@ public class Shooter: MonoBehaviour {
 
 	Transform muzzle;
 
-	private WeaponReloader reloader;
+	public WeaponReloader reloader;
 
 	void Awake() {
 		muzzle = transform.Find("Model/Muzzle");

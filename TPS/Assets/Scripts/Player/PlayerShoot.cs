@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class PlayerShoot: MonoBehaviour {
 	[SerializeField]
@@ -19,6 +20,8 @@ public class PlayerShoot: MonoBehaviour {
 	InputController inputController;
 	Timer timer;
 
+	public event Action OnWeaponSwitch;
+
 	public Shooter ActiveShooter {
 		get {
 			return activeWeapon;
@@ -29,13 +32,11 @@ public class PlayerShoot: MonoBehaviour {
 		timer = GameManager.Instance.Timer;
 		inputController = GameManager.Instance.InputController;
 		weaponHolder = transform.Find("Weapons");
-		timer.Add(() => {
-			weapons = weaponHolder.GetComponentsInChildren<Shooter>();
-			if(weapons.Length > 0) {
-				DeactivateWeapons();
-				Equip(currentWeaponIndex);
-			}
-		}, 0.1f);
+		weapons = weaponHolder.GetComponentsInChildren<Shooter>();
+		if(weapons.Length > 0) {
+			DeactivateWeapons();
+			Equip(currentWeaponIndex);
+		}
 	}
 
 	void SwitchWeapon(int direction) {
@@ -62,6 +63,8 @@ public class PlayerShoot: MonoBehaviour {
 		weapons[index].gameObject.SetActive(true);
 		weapons[index].Equip();
 		canFire = true;
+		if(OnWeaponSwitch != null)
+			OnWeaponSwitch();
 	}
 
 	void Update() {
