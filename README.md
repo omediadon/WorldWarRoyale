@@ -5,25 +5,25 @@
 
 ### [0.0.1] - 21/12/2019
 
-#### Added
+##### Added
 
 - Initial commit
 - Container Systems for inventory and other containement
 
 ### [0.0.2] - 22/12/2019
 
-#### Removed
+##### Removed
 
 - Debug messages
 
-#### Fixed
+##### Fixed
 
 - Fixed LFS
 - Some Container routines
 
 ### [0.0.3.0] - 23/12/2019
 
-#### Added
+##### Added
 
 - Weapon change routines
 - New weapon
