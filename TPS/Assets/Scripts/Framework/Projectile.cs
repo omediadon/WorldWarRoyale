@@ -28,7 +28,6 @@ public class Projectile : MonoBehaviour
 		if(distructible == null) {
 			return;
 		}
-		print("hit! " + other.name);
 		distructible.TakeDamege(damage);
 	}
 }

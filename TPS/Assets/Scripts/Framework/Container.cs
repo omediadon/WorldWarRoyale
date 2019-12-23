@@ -4,9 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 public class Container: MonoBehaviour {
-	private List<ContainerItem> items;
+	[SerializeField]
+	List<ContainerItem> items;
 
-	private class ContainerItem {
+	[Serializable]
+	public class ContainerItem {
 		public Guid Id;
 		public string Name;
 		public int Maximum;
@@ -31,7 +33,7 @@ public class Container: MonoBehaviour {
 			}
 
 			amountTaken += value;
-			return value;
+			return amountTaken;
 		}
 
 		public int Put(int value) {
@@ -43,17 +45,25 @@ public class Container: MonoBehaviour {
 		items = new List<ContainerItem>();
 	}
 
-	public System.Guid Add(string name, int max) {
+	private void Start() {
+		items = new List<ContainerItem>();
+	}
+
+	public Guid Add(string name, int max) {
 		items.Add(new ContainerItem {
 			Maximum = max,
 			Name = name
 		});
+		
 		return items.Last().Id;
 	}
 
+
+
 	public int TakeFromContainer(Guid id, int amount) {
 		var containerItem = items.Where(x =>  id == x.Id).FirstOrDefault();
-
+		print("containerItem: " + containerItem.Id.ToString());
+		print("id: " + id);
 		if(containerItem == null) {
 			return -1;
 		}

@@ -9,9 +9,7 @@ public class Health : Distructible
 
 	public override void Die() {
 		base.Die();
-
-		print("dead!");
-
+		
 		GameManager.Instance.Respawner.Despawn(gameObject, inSeconds);
 	}
 
@@ -21,7 +19,5 @@ public class Health : Distructible
 
 	public override void TakeDamege(float damage) {
 		base.TakeDamege(damage);
-
-		print("remains: " + HitPointsRemaining);
 	}
 }
