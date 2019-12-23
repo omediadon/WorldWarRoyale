@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using System;
 
 public class GameManager {
 	private GameObject gameObject;
 
-	public event System.Action<PlayerController> OnLocalPlayerJoined;
+	public event Action<PlayerController> OnLocalPlayerJoined;
 
 	private static GameManager m_Instance;
 	public static GameManager Instance {

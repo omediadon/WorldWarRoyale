@@ -19,7 +19,11 @@ public class WeaponReloader: MonoBehaviour {
 	public event Action OnAmmoChanged;
 
 	private void Awake() {
-		GameManager.Instance.Timer.Add(() => containerItemId = inventory.Add(this.name, maxAmmo), 0.01f);
+		GameManager.Instance.OnLocalPlayerJoined += this.Instance_OnLocalPlayerJoined;
+	}
+
+	private void Instance_OnLocalPlayerJoined(PlayerController obj) {
+		containerItemId = inventory.Add(this.name, maxAmmo);
 	}
 
 	public int RoundsRemainingInClip {
@@ -31,7 +35,6 @@ public class WeaponReloader: MonoBehaviour {
 	public int RoundsRemainingInInventory {
 		get {
 			return inventory.LeftInInventory(containerItemId);
-			;
 		}
 	}
 

@@ -31,7 +31,7 @@ public class Container: MonoBehaviour {
 			}
 
 			amountTaken += value;
-			return amountTaken;
+			return value;
 		}
 
 		public int Put(int value) {
@@ -40,10 +40,6 @@ public class Container: MonoBehaviour {
 	}
 
 	private void Awake() {
-		items = new List<ContainerItem>();
-	}
-
-	private void Start() {
 		items = new List<ContainerItem>();
 	}
 
