@@ -11,3 +11,7 @@
 * Fixed LFS
 - Removed Debug messages
 * Fixed some routines
+
+0.0.3.0
++ Added Weapon change routines
++ Added new weapon
