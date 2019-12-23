@@ -14,16 +14,15 @@ public class Shooter: MonoBehaviour {
 	[SerializeField]
 	Transform Hand;
 
+
 	Transform muzzle;
 
 	private WeaponReloader reloader;
 
 	void Awake() {
-		muzzle = transform.Find("Muzzle");
+		muzzle = transform.Find("Model/Muzzle");
 
 		reloader = GetComponent<WeaponReloader>();
-
-		transform.SetParent(Hand);
 	}
 
 	public virtual void Fire() {
@@ -59,4 +58,13 @@ public class Shooter: MonoBehaviour {
 
 		reloader.Reload();
 	}
+
+	public void Equip() {
+		transform.SetParent(Hand);
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = Quaternion.identity;
+	}
+
+
+
 }

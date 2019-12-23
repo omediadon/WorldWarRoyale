@@ -71,7 +71,7 @@ public class PlayerController: MonoBehaviour {
 	void Move() {
 		float moveSpeed = walkSpeed;
 
-		if(inputController.isSprinting) {
+		if(inputController.IsSprinting) {
 			moveSpeed = sprintSpeed;
 		}
 
