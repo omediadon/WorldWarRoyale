@@ -38,7 +38,6 @@ public class WeaponReloader: MonoBehaviour {
 
 		IsReloading = true;
 
-		print("round in this clip: " + RoundsRemainingInClip);
 		int amountFromInventory = inventory.TakeFromContainer(containerItemId, clipSize - RoundsRemainingInClip );
 
 		if(amountFromInventory > -0) {
@@ -46,7 +45,6 @@ public class WeaponReloader: MonoBehaviour {
 		}
 		else {
 			IsReloading = false;
-			print("inventory empty");
 		}
 
 	}
@@ -54,7 +52,6 @@ public class WeaponReloader: MonoBehaviour {
 	private void ExecuteReload(int amount) {
 
 		shotsFiredInClip -= amount;
-		print("amount added: " + amount);
 
 		IsReloading = false;
 	}

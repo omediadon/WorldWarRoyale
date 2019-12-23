@@ -4,11 +4,9 @@ using System.Linq;
 using UnityEngine;
 
 public class Container: MonoBehaviour {
-	[SerializeField]
 	List<ContainerItem> items;
 
-	[Serializable]
-	public class ContainerItem {
+	private class ContainerItem {
 		public Guid Id;
 		public string Name;
 		public int Maximum;
@@ -62,8 +60,6 @@ public class Container: MonoBehaviour {
 
 	public int TakeFromContainer(Guid id, int amount) {
 		var containerItem = items.Where(x =>  id == x.Id).FirstOrDefault();
-		print("containerItem: " + containerItem.Id.ToString());
-		print("id: " + id);
 		if(containerItem == null) {
 			return -1;
 		}

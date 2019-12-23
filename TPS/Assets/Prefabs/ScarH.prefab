@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2670671298584667554}
   - component: {fileID: 2670671298584667556}
   m_Layer: 0
-  m_Name: AssaultRifle
+  m_Name: ScarH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,9 +96,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clipSize: 30
-  reloadTime: 3
-  maxAmmo: 999
-  ammo: 999
+  reloadTime: 1.15
+  maxAmmo: 150
+  inventory: {fileID: 0}
+  shotsFiredInClip: 0
 --- !u!1 &2670671298649067038
 GameObject:
   m_ObjectHideFlags: 0
