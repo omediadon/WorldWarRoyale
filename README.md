@@ -28,7 +28,14 @@
 - Weapon change routines
 - New weapon
 
+### [0.0.4] - 23/12/2019
+
+##### Added
+
+- Audio Footsteps
+
 
 [0.0.1]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.2...0.0.3.0
 [0.0.2]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.2...0.0.3.0
 [0.0.3.0]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.2...0.0.3.0
+[0.0.4]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.3.0...0.0.4

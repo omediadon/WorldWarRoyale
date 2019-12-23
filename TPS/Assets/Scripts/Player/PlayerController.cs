@@ -18,6 +18,9 @@ public class PlayerController: MonoBehaviour {
 	[Header("Mouse controls")]
 	[SerializeField]
 	MouseInput mouseControl;
+	[SerializeField]
+	AudioController footStepsAudio;
+
 
 	private MoveController m_MoveController;
 	private MoveController moveController {
@@ -76,6 +79,11 @@ public class PlayerController: MonoBehaviour {
 		}
 
 		Vector2 direction = new Vector2(inputController.vertical * moveSpeed, inputController.horizontal * moveSpeed);
+
+		if(direction != Vector2.zero) {
+			footStepsAudio.Play();
+		}
+
 		moveController.move(direction);
 		
 	}
