@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(MoveController))]
+[RequireComponent(typeof(PlayerStates))]
 public class PlayerController: MonoBehaviour {
 	[System.Serializable]
 	public class MouseInput {
@@ -20,6 +21,8 @@ public class PlayerController: MonoBehaviour {
 	MouseInput mouseControl;
 	[SerializeField]
 	AudioController footStepsAudio;
+
+	public PlayerAim playerAim;
 
 	private PlayerShoot m_PlayerShoot;
 	public PlayerShoot PlayerShoot {
@@ -53,6 +56,17 @@ public class PlayerController: MonoBehaviour {
 		}
 	}
 
+	private PlayerStates m_PlayerState;
+	public PlayerStates PlayerState {
+		get {
+			if(m_PlayerState == null) {
+				m_PlayerState = GetComponent<PlayerStates>();
+			}
+
+			return m_PlayerState;
+		}
+	}
+
 
 	// Start is called before the first frame update
 	void Awake() {
@@ -77,6 +91,7 @@ public class PlayerController: MonoBehaviour {
 		transform.Rotate(Vector3.up * mouseInput.x * mouseControl.sensetivity.x);
 
 		CrossHair.LookHeight(mouseInput.y * mouseControl.sensetivity.y);
+		playerAim.SetRotation(mouseInput.y * mouseControl.sensetivity.y);
 	}
 
 	void Move() {
