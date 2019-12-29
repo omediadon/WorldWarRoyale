@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: 30e80fc9a0675b44b91e4d93369d200a
+guid: a03885d00452a56468911da5ad84a8d5
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
-      74: -203655887218126122
-    second: Idle aiming
+      74: -4791504522942941401
+    second: Armature|Armature|mixamo.com|Layer0
+  - first:
+      74: 6165553400957861818
+    second: Idle aim up
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -35,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle aiming
-      takeName: mixamo.com
+      name: Idle aim up
+      takeName: Armature|Armature|mixamo.com|Layer0.001
       internalID: 0
       firstFrame: 0
-      lastFrame: 63
+      lastFrame: 62
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

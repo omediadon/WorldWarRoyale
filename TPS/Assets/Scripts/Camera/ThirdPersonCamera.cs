@@ -1,12 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+
+using UnityEngine;
 
 public class ThirdPersonCamera: MonoBehaviour {
+	[Serializable]
+	class CameraRig {
+		public Vector3 cameraOffset;
+		public float Damping;
+	}
+
+	[SerializeField]
+	CameraRig defaultCameraRig;
+	[SerializeField]
+	CameraRig aimCameraRig;
+
 	PlayerController localPlayer;
 	Transform cameraLookTarget;
-	[SerializeField]
-	Vector3 cameraOffset;
-	[SerializeField]
-	float damping;
 
 	// Start is called before the first frame update
 	void Awake() {
@@ -15,14 +24,24 @@ public class ThirdPersonCamera: MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		Vector3 targetPosition = cameraLookTarget.position + localPlayer.transform.forward * cameraOffset.z
-			+ localPlayer.transform.up * cameraOffset.y
-			+ localPlayer.transform.right * cameraOffset.x;
+		if(localPlayer == null) {
+			return;
+		}
+
+		CameraRig currentCamera = defaultCameraRig;
+
+		if(localPlayer.PlayerState.WeaponState == PlayerStates.EWeaponState.AIMING || localPlayer.PlayerState.WeaponState == PlayerStates.EWeaponState.AIMINGFIRING) {
+			currentCamera = aimCameraRig;
+		}
+
+		Vector3 targetPosition = cameraLookTarget.position + localPlayer.transform.forward * currentCamera.cameraOffset.z
+			+ localPlayer.transform.up * currentCamera.cameraOffset.y
+			+ localPlayer.transform.right * currentCamera.cameraOffset.x;
 
 		Quaternion targetRotation = Quaternion.LookRotation(cameraLookTarget.position - targetPosition, Vector3.up);
 
-		transform.position = Vector3.Lerp(transform.position, targetPosition, damping * Time.deltaTime);
-		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, damping * Time.deltaTime);
+		transform.position = Vector3.Lerp(transform.position, targetPosition, currentCamera.Damping * Time.deltaTime);
+		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, currentCamera.Damping * Time.deltaTime);
 	}
 
 	private void Instance_OnLocalPlayerJoined(PlayerController player) {
