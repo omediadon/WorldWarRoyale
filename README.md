@@ -35,11 +35,19 @@
 - Audio Footsteps
 - Primitive kind of GUI as Framework-able set up
 - Ability to pick up items from the floor
+- Training area, new!
+- Editorconfig file
 
 ##### Fixed
 
 - Weapon reload
 - Weapon GUI
+- Changed Aim, finally, but not quite ready
+
+##### Removed
+
+- The old testing-cube! :dizzy_face:
+
 
 
 [0.0.1]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.2...0.0.3.0

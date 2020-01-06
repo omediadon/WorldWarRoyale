@@ -13,16 +13,21 @@ public class Shooter: MonoBehaviour {
 
 	[SerializeField]
 	Transform Hand;
+	[SerializeField]
+	Transform AimTarget;
 
 
 	Transform muzzle;
 
+	[HideInInspector]
 	public WeaponReloader reloader;
 
 	void Awake() {
 		muzzle = transform.Find("Model/Muzzle");
 
 		reloader = GetComponent<WeaponReloader>();
+
+		//AimTarget = GameManager.Instance.LocalPlayer.transform.Find("AimingPivot/CrossHaire");
 	}
 
 	public virtual void Fire() {
@@ -44,6 +49,8 @@ public class Shooter: MonoBehaviour {
 		}
 
 		nextFireAllowed = Time.time + rateOfFire;
+
+		muzzle.LookAt(AimTarget);
 
 		Instantiate(projectile, muzzle.position, muzzle.rotation);
 

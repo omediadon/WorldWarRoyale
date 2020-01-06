@@ -90,7 +90,6 @@ public class PlayerController: MonoBehaviour {
 
 		transform.Rotate(Vector3.up * mouseInput.x * mouseControl.sensetivity.x);
 
-		CrossHair.LookHeight(mouseInput.y * mouseControl.sensetivity.y);
 		playerAim.SetRotation(mouseInput.y * mouseControl.sensetivity.y);
 	}
 

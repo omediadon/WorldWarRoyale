@@ -20,14 +20,20 @@ public class Projectile : MonoBehaviour
 	void Update() {
 		float distance = Time.deltaTime * speed;
 		transform.Translate(Vector3.forward * distance);
+
+		RaycastHit hit;
+		if(Physics.Raycast(transform.position, transform.forward, out hit, 5f)) {
+			checkDistructible(hit.transform);
+		}
 	}
 
-	void OnTriggerEnter(Collider other) {
+	void checkDistructible(Transform other) {
 
-		var distructible = other.transform.GetComponent<Distructible>();
+		var distructible = other.GetComponent<Distructible>();
 		if(distructible == null) {
 			return;
 		}
 		distructible.TakeDamege(damage);
+		Destroy(this,0);
 	}
 }
