@@ -38,6 +38,7 @@
 - Training area, new!
 - Editorconfig file
 - Muzzle fire particles (Scar only)
+- Ragdoll death animation
 
 ##### Fixed
 
