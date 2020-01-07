@@ -37,6 +37,7 @@
 - Ability to pick up items from the floor
 - Training area, new!
 - Editorconfig file
+- Muzzle fire particles (Scar only)
 
 ##### Fixed
 

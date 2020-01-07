@@ -22,12 +22,14 @@ public class Shooter: MonoBehaviour {
 	[HideInInspector]
 	public WeaponReloader reloader;
 
+	private ParticleSystem muzzleFire;
+
 	void Awake() {
 		muzzle = transform.Find("Model/Muzzle");
 
 		reloader = GetComponent<WeaponReloader>();
 
-		//AimTarget = GameManager.Instance.LocalPlayer.transform.Find("AimingPivot/CrossHaire");
+		muzzleFire = muzzle.GetComponent<ParticleSystem>();
 	}
 
 	public virtual void Fire() {
@@ -52,6 +54,8 @@ public class Shooter: MonoBehaviour {
 
 		muzzle.LookAt(AimTarget);
 
+		fireEffect();
+
 		Instantiate(projectile, muzzle.position, muzzle.rotation);
 
 		canFire = true;
@@ -70,6 +74,13 @@ public class Shooter: MonoBehaviour {
 		transform.SetParent(Hand);
 		transform.localPosition = Vector3.zero;
 		transform.localRotation = Quaternion.identity;
+	}
+
+	private void fireEffect() {
+		if (muzzleFire == null)
+			return;
+
+		muzzleFire.Play();
 	}
 
 
