@@ -39,6 +39,7 @@
 - Editorconfig file
 - Muzzle fire particles (Scar only)
 - Ragdoll death animation
+- A scanner for AI to find the player
 
 ##### Fixed
 

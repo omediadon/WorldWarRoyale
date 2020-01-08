@@ -9,7 +9,7 @@ public class Ragdoll_TEST : Distructible {
 		bodyParts = transform.GetComponentsInChildren<Rigidbody>();
 		animator = transform.GetComponent<Animator>();
 		moveController = transform.GetComponent<MoveController>();
-		setRagdoll(false);
+		SetRagdoll(false);
 	}
 
 	private void Update() {
@@ -20,7 +20,7 @@ public class Ragdoll_TEST : Distructible {
 		}
 	}
 
-	void setRagdoll(bool enable) {
+	void SetRagdoll(bool enable) {
 		for (int i = 0; i < bodyParts.Length; i++) {
 			bodyParts[i].isKinematic = !enable;
 		}
@@ -28,7 +28,7 @@ public class Ragdoll_TEST : Distructible {
 
 	public override void Die() {
 		base.Die();
-		setRagdoll(true);
+		SetRagdoll(true);
 		animator.enabled = false;
 	}
 }
