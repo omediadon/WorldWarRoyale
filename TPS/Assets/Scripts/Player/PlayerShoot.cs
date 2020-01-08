@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
-public class PlayerShoot: MonoBehaviour {
+using UnityEngine;
+
+public class PlayerShoot : MonoBehaviour {
 	[SerializeField]
-	float weaponSwitchTime;
-
-	bool canSwitch = true;
+	float weaponSwitchTime = 1;
 	bool canFire = true;
+
+	//bool canSwitch = true;
 
 	Transform weaponHolder;
 
@@ -33,7 +34,7 @@ public class PlayerShoot: MonoBehaviour {
 		inputController = GameManager.Instance.InputController;
 		weaponHolder = transform.Find("Weapons");
 		weapons = weaponHolder.GetComponentsInChildren<Shooter>();
-		if(weapons.Length > 0) {
+		if (weapons.Length > 0) {
 			DeactivateWeapons();
 			Equip(currentWeaponIndex);
 		}
@@ -43,10 +44,10 @@ public class PlayerShoot: MonoBehaviour {
 		int old = currentWeaponIndex;
 		canFire = false;
 		currentWeaponIndex += direction;
-		if(currentWeaponIndex > weapons.Length - 1) {
+		if (currentWeaponIndex > weapons.Length - 1) {
 			currentWeaponIndex = 0;
 		}
-		if(currentWeaponIndex < 0) {
+		if (currentWeaponIndex < 0) {
 			currentWeaponIndex = weapons.Length - 1;
 		}
 
@@ -63,25 +64,24 @@ public class PlayerShoot: MonoBehaviour {
 		weapons[index].gameObject.SetActive(true);
 		weapons[index].Equip();
 		canFire = true;
-		if(OnWeaponSwitch != null)
-			OnWeaponSwitch();
+		OnWeaponSwitch?.Invoke();
 	}
 
 	void Update() {
-		if(inputController.MouseWheelUp) {
+		if (inputController.MouseWheelUp) {
 			SwitchWeapon(1);
 		}
-		if(inputController.MouseWheelDown) {
+		if (inputController.MouseWheelDown) {
 			SwitchWeapon(-1);
 		}
 
-		if(inputController.Fire1 && canFire) {
+		if (inputController.Fire1 && canFire) {
 			activeWeapon.Fire();
 		}
 	}
 
 	void DeactivateWeapons() {
-		foreach(Shooter weapon in weapons) {
+		foreach (Shooter weapon in weapons) {
 			weapon.gameObject.SetActive(false);
 		}
 	}

@@ -1,20 +1,21 @@
 ﻿using System;
+
 using UnityEngine;
 
-public class WeaponReloader: MonoBehaviour {
+public class WeaponReloader : MonoBehaviour {
 	[SerializeField]
-	int clipSize;
+	int clipSize = 30;
 	[SerializeField]
-	float reloadTime;
+	float reloadTime = 1;
 	[SerializeField]
-	int maxAmmo;
+	int maxAmmo = 300;
 	[SerializeField]
-	Container inventory;
+	Container inventory = null;
 	[SerializeField]
-	EWeaponType weaponType;
+	EWeaponType weaponType = EWeaponType.SCARH;
 
 	[SerializeField]
-	int shotsFiredInClip;
+	int shotsFiredInClip = 0;
 
 	Guid containerItemId;
 
@@ -46,15 +47,15 @@ public class WeaponReloader: MonoBehaviour {
 	}
 
 	public void Reload() {
-		if(IsReloading) {
+		if (IsReloading) {
 			return;
 		}
 
 		IsReloading = true;
 
-		int amountFromInventory = inventory.TakeFromContainer(containerItemId, clipSize - RoundsRemainingInClip );
+		int amountFromInventory = inventory.TakeFromContainer(containerItemId, clipSize - RoundsRemainingInClip);
 
-		if(amountFromInventory > -0) {
+		if (amountFromInventory > -0) {
 			GameManager.Instance.Timer.Add(() => ExecuteReload(amountFromInventory), reloadTime);
 		}
 		else {
@@ -77,8 +78,6 @@ public class WeaponReloader: MonoBehaviour {
 	}
 
 	public void HandleAmmoChange() {
-		if(OnAmmoChanged != null) {
-			OnAmmoChanged();
-		}
+		OnAmmoChanged?.Invoke();
 	}
 }

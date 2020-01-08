@@ -1,22 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+
+using UnityEngine;
 
 public class PlayerHealth : Distructible {
-	[SerializeField] SpawnPoint[] spawnPoints;
+	[SerializeField] SpawnPoint[] spawnPoints = Array.Empty<SpawnPoint>();
 
 	public override void Die() {
 		base.Die();
-		spawnAtNew();
+		SpawnAtNew();
 	}
 
-	void spawnAtNew() {
-		int spawnIdx = Random.Range(0, spawnPoints.Length);
+	void SpawnAtNew() {
+		int spawnIdx = UnityEngine.Random.Range(0, spawnPoints.Length);
 
 		transform.position = spawnPoints[spawnIdx].transform.position;
 		transform.rotation = spawnPoints[spawnIdx].transform.rotation;
 	}
 
 	[ContextMenu("die")]
-	void testDie() {
+#pragma warning disable IDE0051
+	void TestDie() {
+#pragma warning restore IDE0051
 		Die();
 	}
 }

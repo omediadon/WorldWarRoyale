@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+
+using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class AudioController: MonoBehaviour {
+public class AudioController : MonoBehaviour {
 	[SerializeField]
-	AudioClip[] audioClips;
+	AudioClip[] audioClips = Array.Empty<AudioClip>();
 	[SerializeField]
-	float delayBetweenClips;
+	float delayBetweenClips = 0.2f;
 
 	bool canPlay;
 	AudioSource source;
@@ -19,14 +21,14 @@ public class AudioController: MonoBehaviour {
 	}
 
 	public void Play() {
-		if(!canPlay) {
+		if (!canPlay) {
 			return;
 		}
 
 		timer.Add(() => { canPlay = true; }, delayBetweenClips);
 
-		AudioClip selectedClip = audioClips[Random.Range(0, audioClips.Length)];
-			source.PlayOneShot(selectedClip);
+		AudioClip selectedClip = audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+		source.PlayOneShot(selectedClip);
 		canPlay = false;
 	}
 }

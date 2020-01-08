@@ -5,14 +5,14 @@ using UnityEngine;
 public class ThirdPersonCamera: MonoBehaviour {
 	[Serializable]
 	class CameraRig {
-		public Vector3 cameraOffset;
-		public float Damping;
+		public Vector3 cameraOffset = Vector3.zero;
+		public float Damping = 0;
 	}
 
 	[SerializeField]
-	CameraRig defaultCameraRig;
+	CameraRig defaultCameraRig = null;
 	[SerializeField]
-	CameraRig aimCameraRig;
+	CameraRig aimCameraRig = null;
 
 	PlayerController localPlayer;
 	Transform cameraLookTarget;

@@ -6,12 +6,12 @@ using UnityEngine;
 public class Scanner : MonoBehaviour {
 	[Range(0.2f, 2f)]
 	[SerializeField]
-	float scanSpeed;
+	float scanSpeed = 0.2f;
 	[Range(70.0f, 110.0f)]
 	[SerializeField]
-	float fieldOfView;
+	float fieldOfView = 90f;
 	[SerializeField]
-	LayerMask mask;
+	LayerMask mask = new LayerMask();
 
 	SphereCollider rangeTrigger;
 	List<PlayerController> targets;
@@ -62,7 +62,7 @@ public class Scanner : MonoBehaviour {
 		else {
 			float closest = rangeTrigger.radius;
 			foreach (var target in targets) {
-				if(Vector3.Distance(transform.position, target.transform.position) < closest) {
+				if (Vector3.Distance(transform.position, target.transform.position) < closest) {
 					closest = Vector3.Distance(transform.position, target.transform.position);
 					selectedTarget = target;
 				}
@@ -87,7 +87,7 @@ public class Scanner : MonoBehaviour {
 	}
 
 	void PrepareScan() {
-		if(selectedTarget != null) {
+		if (selectedTarget != null) {
 			return;
 		}
 

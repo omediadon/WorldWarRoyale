@@ -1,17 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Projectile : MonoBehaviour
-{
+public class Projectile : MonoBehaviour {
 	[SerializeField]
-	float speed;
+	float speed = 35;
 	[SerializeField]
-	float timeToLive;
+	float timeToLive = 10;
 	[Tooltip("Damage value between 0 and 100.")]
 	[SerializeField]
-	float damage;
+	float damage = 1;
 
 	void Start() {
 		Destroy(gameObject, timeToLive);
@@ -22,18 +19,19 @@ public class Projectile : MonoBehaviour
 		transform.Translate(Vector3.forward * distance);
 
 		RaycastHit hit;
-		if(Physics.Raycast(transform.position, transform.forward, out hit, 5f)) {
-			checkDistructible(hit.transform);
+
+		if (Physics.Raycast(transform.position, transform.forward, out hit, 5f)) {
+			CheckDistructible(hit.transform);
 		}
 	}
 
-	void checkDistructible(Transform other) {
+	void CheckDistructible(Transform other) {
 
 		var distructible = other.GetComponent<Distructible>();
-		if(distructible == null) {
+		if (distructible == null) {
 			return;
 		}
 		distructible.TakeDamege(damage);
-		Destroy(this,0);
+		Destroy(this, 0);
 	}
 }

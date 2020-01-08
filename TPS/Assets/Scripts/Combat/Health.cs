@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Health : Distructible
-{
+public class Health : Distructible {
 	[SerializeField]
-	private float inSeconds;
+	private float inSeconds = 1;
 
 	public override void Die() {
 		base.Die();
-		
+
 		GameManager.Instance.Respawner.Despawn(gameObject, inSeconds);
 	}
 

@@ -2,41 +2,43 @@
 
 [RequireComponent(typeof(MoveController))]
 [RequireComponent(typeof(PlayerStates))]
-public class PlayerController: MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 	[System.Serializable]
 	public class MouseInput {
-		public bool lockMouse;
-		public Vector2 damping;
-		public Vector2 sensetivity;
+		public bool lockMouse = false;
+		public Vector2 damping = Vector2.zero;
+		public Vector2 sensetivity = Vector2.one;
 	}
 
 	[SerializeField]
-	float walkSpeed;
+	float walkSpeed = 4;
+	/*
 	[SerializeField]
-	float crouchSpeed;
+	float crouchSpeed = 3;
+	*/
 	[SerializeField]
-	float sprintSpeed;
+	float sprintSpeed = 5;
 	[Header("Mouse controls")]
 	[SerializeField]
-	MouseInput mouseControl;
+	MouseInput mouseControl = new MouseInput();
 	[SerializeField]
-	AudioController footStepsAudio;
+	AudioController footStepsAudio = null;
 
 	public PlayerAim playerAim;
 
 	private PlayerShoot m_PlayerShoot;
 	public PlayerShoot PlayerShoot {
 		get {
-			if(m_PlayerShoot == null)
+			if (m_PlayerShoot == null)
 				m_PlayerShoot = GetComponent<PlayerShoot>();
 			return m_PlayerShoot;
 		}
 	}
 
 	private MoveController m_MoveController;
-	private MoveController moveController {
+	private MoveController MoveController {
 		get {
-			if(m_MoveController == null) {
+			if (m_MoveController == null) {
 				m_MoveController = GetComponent<MoveController>();
 			}
 			return m_MoveController;
@@ -45,6 +47,7 @@ public class PlayerController: MonoBehaviour {
 	private InputController inputController;
 	Vector2 mouseInput;
 
+	/*
 	private CrossHair m_CrossHair;
 	private CrossHair CrossHair {
 		get {
@@ -55,11 +58,12 @@ public class PlayerController: MonoBehaviour {
 			return m_CrossHair;
 		}
 	}
+	*/
 
 	private PlayerStates m_PlayerState;
 	public PlayerStates PlayerState {
 		get {
-			if(m_PlayerState == null) {
+			if (m_PlayerState == null) {
 				m_PlayerState = GetComponent<PlayerStates>();
 			}
 
@@ -72,7 +76,7 @@ public class PlayerController: MonoBehaviour {
 	void Awake() {
 		inputController = GameManager.Instance.InputController;
 		GameManager.Instance.LocalPlayer = this;
-		if(mouseControl.lockMouse) {
+		if (mouseControl.lockMouse) {
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 		}
@@ -96,17 +100,17 @@ public class PlayerController: MonoBehaviour {
 	void Move() {
 		float moveSpeed = walkSpeed;
 
-		if(inputController.IsSprinting) {
+		if (inputController.IsSprinting) {
 			moveSpeed = sprintSpeed;
 		}
 
 		Vector2 direction = new Vector2(inputController.vertical * moveSpeed, inputController.horizontal * moveSpeed);
 
-		if(direction != Vector2.zero) {
+		if (direction != Vector2.zero) {
 			footStepsAudio.Play();
 		}
 
-		moveController.move(direction);
-		
+		MoveController.move(direction);
+
 	}
 }

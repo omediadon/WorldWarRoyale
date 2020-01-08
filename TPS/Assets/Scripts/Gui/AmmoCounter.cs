@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class AmmoCounter: MonoBehaviour {
+public class AmmoCounter : MonoBehaviour {
 	[SerializeField]
-	Text text;
+	Text text = null;
 
 	PlayerShoot playerShoot;
 	WeaponReloader weaponReloader;
@@ -13,7 +12,7 @@ public class AmmoCounter: MonoBehaviour {
 		GameManager.Instance.OnLocalPlayerJoined += OnPlayerJoined;
 	}
 
-	 void OnPlayerJoined(PlayerController player) {
+	void OnPlayerJoined(PlayerController player) {
 		playerShoot = player.PlayerShoot;
 		weaponReloader = playerShoot.ActiveShooter.reloader;
 		weaponReloader.OnAmmoChanged += this.Reloader_OnAmmoChanged;
@@ -28,10 +27,9 @@ public class AmmoCounter: MonoBehaviour {
 	}
 
 	private void Reloader_OnAmmoChanged() {
-		text.text = weaponReloader.RoundsRemainingInClip + "/" + weaponReloader.RoundsRemainingInInventory;
+		if (text != null) {
+			text.text = weaponReloader.RoundsRemainingInClip + "/" + weaponReloader.RoundsRemainingInInventory;
+		}
 	}
 
-	void Update() {
-
-	}
 }

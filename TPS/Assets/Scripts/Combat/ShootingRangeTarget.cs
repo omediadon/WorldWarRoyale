@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 public class ShootingRangeTarget : Distructible {
-	[SerializeField] float rotationSpeed;
-	[SerializeField] float repairTime;
+	[SerializeField] float rotationSpeed = 1;
+	[SerializeField] float repairTime = 3;
 
-	Quaternion initRotation;
-	Quaternion targRotation;
-	bool requireRotation;
+	Quaternion initRotation = Quaternion.identity;
+	Quaternion targRotation = Quaternion.identity;
+	bool requireRotation = false;
 
 	// Start is called before the first frame update
 	void Awake() {

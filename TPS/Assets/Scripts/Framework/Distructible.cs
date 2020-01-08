@@ -3,12 +3,12 @@
 [RequireComponent(typeof(Collider))]
 public class Distructible: MonoBehaviour {
 	[SerializeField]
-	float hitPoints;
+	float hitPoints = 10;
 
 	public event System.Action OnDeath;
 	public event System.Action OnDamageRecieved;
 
-	float damageTaken;
+	float damageTaken = 0;
 
 	public float HitPointsRemaining {
 		get {
@@ -27,19 +27,15 @@ public class Distructible: MonoBehaviour {
 			return;
 		}
 
-		if(OnDeath != null) {
-			OnDeath();
-		}
+		OnDeath?.Invoke();
 	}
 
 	public virtual void TakeDamege(float damage) {
 		damageTaken += damage;
 
-		if(OnDamageRecieved != null) {
-			OnDamageRecieved();
-		}
+		OnDamageRecieved?.Invoke();
 
-		if(HitPointsRemaining <= 0) {
+		if (HitPointsRemaining <= 0) {
 			Die();
 		}
 	}

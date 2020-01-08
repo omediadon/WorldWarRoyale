@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class AmmoPickup : PickupItem
-{
+public class AmmoPickup : PickupItem {
 
 	[SerializeField]
-	EWeaponType weaponType;
+	EWeaponType weaponType = EWeaponType.SCARH;
 	[SerializeField]
-	float respawnTime;
+	float respawnTime = 1;
 	[SerializeField]
-	int amount;
+	int amount = 30;
 
 	public override void OnPickUpItem(Transform item) {
 		var playerInventory = item.GetComponentInChildren<Container>();
