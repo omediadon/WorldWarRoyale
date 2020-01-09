@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(MoveController))]
+[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerStates))]
-public class PlayerController : MonoBehaviour {
+public class Player : MonoBehaviour {
 	[System.Serializable]
 	public class MouseInput {
 		public bool lockMouse = false;
@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour {
 		public Vector2 sensetivity = Vector2.one;
 	}
 
+	[Range(0.02f, 0.2f)]
+	[SerializeField]
+	float SpeedFactor = 0.05f;
 	[SerializeField]
 	float walkSpeed = 4;
 	/*
@@ -35,11 +38,11 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private MoveController m_MoveController;
-	private MoveController MoveController {
+	private CharacterController m_MoveController;
+	private CharacterController MoveController {
 		get {
 			if (m_MoveController == null) {
-				m_MoveController = GetComponent<MoveController>();
+				m_MoveController = GetComponent<CharacterController>();
 			}
 			return m_MoveController;
 		}
@@ -110,7 +113,8 @@ public class PlayerController : MonoBehaviour {
 			footStepsAudio.Play();
 		}
 
-		MoveController.move(direction);
+		MoveController.Move(transform.forward * direction.x * SpeedFactor + transform.right * direction.y * SpeedFactor);
+		//MoveController.Move(direction);
 
 	}
 }

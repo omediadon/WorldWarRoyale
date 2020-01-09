@@ -14,7 +14,6 @@ public class WeaponReloader : MonoBehaviour {
 	[SerializeField]
 	EWeaponType weaponType = EWeaponType.SCARH;
 
-	[SerializeField]
 	int shotsFiredInClip = 0;
 
 	Guid containerItemId;
@@ -25,7 +24,7 @@ public class WeaponReloader : MonoBehaviour {
 		GameManager.Instance.OnLocalPlayerJoined += this.Instance_OnLocalPlayerJoined;
 	}
 
-	private void Instance_OnLocalPlayerJoined(PlayerController obj) {
+	private void Instance_OnLocalPlayerJoined(Player obj) {
 		containerItemId = inventory.Add(weaponType.ToString(), maxAmmo);
 	}
 
@@ -55,7 +54,7 @@ public class WeaponReloader : MonoBehaviour {
 
 		int amountFromInventory = inventory.TakeFromContainer(containerItemId, clipSize - RoundsRemainingInClip);
 
-		if (amountFromInventory > -0) {
+		if (amountFromInventory > 0) {
 			GameManager.Instance.Timer.Add(() => ExecuteReload(amountFromInventory), reloadTime);
 		}
 		else {

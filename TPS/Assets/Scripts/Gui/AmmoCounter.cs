@@ -9,10 +9,10 @@ public class AmmoCounter : MonoBehaviour {
 	WeaponReloader weaponReloader;
 
 	void Awake() {
-		GameManager.Instance.OnLocalPlayerJoined += OnPlayerJoined;
+		GameManager.Instance.OnLocalPlayerJoinedX += OnPlayerJoined;
 	}
 
-	void OnPlayerJoined(PlayerController player) {
+	void OnPlayerJoined(Player player) {
 		playerShoot = player.PlayerShoot;
 		weaponReloader = playerShoot.ActiveShooter.reloader;
 		weaponReloader.OnAmmoChanged += this.Reloader_OnAmmoChanged;

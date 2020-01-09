@@ -14,7 +14,7 @@ public class ThirdPersonCamera: MonoBehaviour {
 	[SerializeField]
 	CameraRig aimCameraRig = null;
 
-	PlayerController localPlayer;
+	Player localPlayer;
 	Transform cameraLookTarget;
 
 	// Start is called before the first frame update
@@ -44,7 +44,7 @@ public class ThirdPersonCamera: MonoBehaviour {
 		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, currentCamera.Damping * Time.deltaTime);
 	}
 
-	private void Instance_OnLocalPlayerJoined(PlayerController player) {
+	private void Instance_OnLocalPlayerJoined(Player player) {
 		localPlayer = player;
 		cameraLookTarget = localPlayer.transform.Find("CameraLookTarget");
 

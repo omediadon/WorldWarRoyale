@@ -4,7 +4,8 @@ using System;
 public class GameManager {
 	private GameObject gameObject;
 
-	public event Action<PlayerController> OnLocalPlayerJoined;
+	public event Action<Player> OnLocalPlayerJoined;
+	public event Action<Player> OnLocalPlayerJoinedX;
 
 	private static GameManager m_Instance;
 	public static GameManager Instance {
@@ -31,16 +32,15 @@ public class GameManager {
 		}
 	}
 
-	private PlayerController m_LocalPlayer;
-	public PlayerController LocalPlayer {
+	private Player m_LocalPlayer;
+	public Player LocalPlayer {
 		get {
 			return m_LocalPlayer;
 		}
 		set {
 			m_LocalPlayer = value;
-			if(OnLocalPlayerJoined != null) {
-				OnLocalPlayerJoined(m_LocalPlayer);
-			}
+			OnLocalPlayerJoined?.Invoke(m_LocalPlayer);
+			OnLocalPlayerJoinedX?.Invoke(m_LocalPlayer);
 		}
 	}
 

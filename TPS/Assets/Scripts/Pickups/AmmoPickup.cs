@@ -15,6 +15,6 @@ public class AmmoPickup : PickupItem {
 		playerInventory.Put(weaponType.ToString(), amount);
 
 		//TODO: Check if has no reloader
-		item.GetComponent<PlayerController>().PlayerShoot.ActiveShooter.reloader.HandleAmmoChange();
+		item.GetComponent<Player>().PlayerShoot.ActiveShooter.reloader.HandleAmmoChange();
 	}
 }

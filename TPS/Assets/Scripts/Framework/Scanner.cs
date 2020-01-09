@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -14,11 +15,29 @@ public class Scanner : MonoBehaviour {
 	LayerMask mask = new LayerMask();
 
 	SphereCollider rangeTrigger;
-	List<PlayerController> targets;
-	PlayerController selectedTarget;
+	List<Player> targets;
+
+	Player m_selectedTarget;
+
+	public Player SelectedTarget {
+		get { 
+			return this.m_selectedTarget; 
+		}
+		set { 
+			this.m_selectedTarget = value;
+
+			if(m_selectedTarget == null) {
+				return;
+			}
+
+			OnTargetSelected?.Invoke(m_selectedTarget.transform.position);
+		}
+	}
+
+	public event Action<Vector3> OnTargetSelected;
 
 	private void Start() {
-		targets = new List<PlayerController>();
+		targets = new List<Player>();
 		rangeTrigger = GetComponent<SphereCollider>();
 		PrepareScan();
 	}
@@ -27,8 +46,8 @@ public class Scanner : MonoBehaviour {
 	private void OnDrawGizmos() {
 		Gizmos.color = Color.cyan;
 
-		if (selectedTarget != null) {
-			Gizmos.DrawLine(transform.position, selectedTarget.transform.position);
+		if (SelectedTarget != null) {
+			Gizmos.DrawLine(transform.position, SelectedTarget.transform.position);
 		}
 
 		Gizmos.color = Color.green;
@@ -47,7 +66,7 @@ public class Scanner : MonoBehaviour {
 		Collider[] results = Physics.OverlapSphere(transform.position, rangeTrigger.radius);
 
 		for (int i = 0; i < results.Length; i++) {
-			var player = results[i].gameObject.GetComponent<PlayerController>();
+			var player = results[i].gameObject.GetComponent<Player>();
 			if (player == null || !IsInLineOfSight(Vector3.up, player.transform.position)) {
 				continue;
 			}
@@ -57,14 +76,14 @@ public class Scanner : MonoBehaviour {
 		}
 
 		if (targets.Count == 1) {
-			selectedTarget = targets[0];
+			SelectedTarget = targets[0];
 		}
 		else {
 			float closest = rangeTrigger.radius;
 			foreach (var target in targets) {
 				if (Vector3.Distance(transform.position, target.transform.position) < closest) {
 					closest = Vector3.Distance(transform.position, target.transform.position);
-					selectedTarget = target;
+					SelectedTarget = target;
 				}
 			}
 		}
@@ -87,7 +106,7 @@ public class Scanner : MonoBehaviour {
 	}
 
 	void PrepareScan() {
-		if (selectedTarget != null) {
+		if (SelectedTarget != null) {
 			return;
 		}
 
