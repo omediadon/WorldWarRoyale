@@ -14,7 +14,7 @@ public class Pathfinder : MonoBehaviour {
 	public event Action OnDestinationReached;
 
 	bool m_DestinationReached;
-	bool DestinationReached {
+	public bool DestinationReached {
 		get {
 			return this.m_DestinationReached;
 		}
@@ -39,7 +39,7 @@ public class Pathfinder : MonoBehaviour {
 			return;
 		}
 
-		if (Agent.remainingDistance < remainingDistThreshold) {
+		if (Agent.remainingDistance <= remainingDistThreshold) {
 			DestinationReached = true;
 		}
 	}

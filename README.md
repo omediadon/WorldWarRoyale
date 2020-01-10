@@ -41,6 +41,7 @@
 - Ragdoll death animation
 - A scanner for AI to find the player
 - Basic enemy NPC
+- Waypoints system for NPC
 
 ##### Fixed
 

@@ -19,7 +19,7 @@ insert_final_newline = true
 
 # Organize usings
 dotnet_separate_import_directive_groups = true
-dotnet_sort_system_directives_first = false
+dotnet_sort_system_directives_first = true
 
 # this. and Me. preferences
 dotnet_style_qualification_for_event = true:silent
@@ -115,7 +115,7 @@ csharp_new_line_before_else = true
 csharp_new_line_before_finally = true
 csharp_new_line_before_members_in_anonymous_types = true
 csharp_new_line_before_members_in_object_initializers = true
-csharp_new_line_before_open_brace = none
+csharp_new_line_before_open_brace = false
 csharp_new_line_between_query_expression_clauses = true
 
 # Indentation preferences
@@ -127,14 +127,14 @@ csharp_indent_labels = one_less_than_current
 csharp_indent_switch_labels = true
 
 # Space preferences
-csharp_space_after_cast = false
+csharp_space_after_cast = true
 csharp_space_after_colon_in_inheritance_clause = true
 csharp_space_after_comma = true
 csharp_space_after_dot = false
-csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_after_keywords_in_control_flow_statements = false
 csharp_space_after_semicolon_in_for_statement = true
 csharp_space_around_binary_operators = before_and_after
-csharp_space_around_declaration_statements = false
+csharp_space_around_declaration_statements = ignore
 csharp_space_before_colon_in_inheritance_clause = true
 csharp_space_before_comma = false
 csharp_space_before_dot = false
@@ -151,8 +151,8 @@ csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
 # Wrapping preferences
-csharp_preserve_single_line_blocks = true
-csharp_preserve_single_line_statements = true
+csharp_preserve_single_line_blocks = false
+csharp_preserve_single_line_statements = false
 
 #### Naming styles ####
 
