@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Pathfinder))]
 public class EnemyAnimation : MonoBehaviour {
 	[SerializeField]
-	Animator animator;
+	Animator animator = null;
 
 	Pathfinder pathfinder;
 

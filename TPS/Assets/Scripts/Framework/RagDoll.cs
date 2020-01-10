@@ -18,7 +18,7 @@ public class RagDoll : MonoBehaviour {
 		}
 	}
 
-	void EnableRagdoll(bool enable) {
+	public void EnableRagdoll(bool enable) {
 		Animator.enabled = !enable;
 		for(int i = 0; i < bodyParts.Length; i++) {
 			bodyParts[i].isKinematic = !enable;

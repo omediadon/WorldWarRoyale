@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Distructible: MonoBehaviour {
+public class Distructible : MonoBehaviour {
 	[SerializeField]
 	float hitPoints = 10;
 
@@ -23,10 +23,6 @@ public class Distructible: MonoBehaviour {
 	}
 
 	public virtual void Die() {
-		if(!IsAlive) {
-			return;
-		}
-
 		OnDeath?.Invoke();
 	}
 
@@ -35,7 +31,7 @@ public class Distructible: MonoBehaviour {
 
 		OnDamageRecieved?.Invoke();
 
-		if (HitPointsRemaining <= 0) {
+		if(HitPointsRemaining <= 0) {
 			Die();
 		}
 	}

@@ -42,6 +42,7 @@
 - A scanner for AI to find the player
 - Basic enemy NPC
 - Waypoints system for NPC
+- Enemy shootable 
 
 ##### Fixed
 

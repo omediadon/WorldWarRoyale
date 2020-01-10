@@ -10,9 +10,9 @@ public class Player : MonoBehaviour {
 		public Vector2 sensetivity = Vector2.one;
 	}
 
-	[Range(0.02f, 0.2f)]
+	[Range(0.5f, 5f)]
 	[SerializeField]
-	float SpeedFactor = 0.05f;
+	float SpeedFactor = 1f;
 	[SerializeField]
 	float walkSpeed = 4;
 	/*
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
 	private PlayerShoot m_PlayerShoot;
 	public PlayerShoot PlayerShoot {
 		get {
-			if (m_PlayerShoot == null)
+			if(m_PlayerShoot == null)
 				m_PlayerShoot = GetComponent<PlayerShoot>();
 			return m_PlayerShoot;
 		}
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour {
 	private CharacterController m_MoveController;
 	private CharacterController MoveController {
 		get {
-			if (m_MoveController == null) {
+			if(m_MoveController == null) {
 				m_MoveController = GetComponent<CharacterController>();
 			}
 			return m_MoveController;
@@ -50,23 +50,10 @@ public class Player : MonoBehaviour {
 	private InputController inputController;
 	Vector2 mouseInput;
 
-	/*
-	private CrossHair m_CrossHair;
-	private CrossHair CrossHair {
-		get {
-			if(m_CrossHair == null) {
-				m_CrossHair = GetComponentInChildren<CrossHair>();
-			}
-
-			return m_CrossHair;
-		}
-	}
-	*/
-
 	private PlayerStates m_PlayerState;
 	public PlayerStates PlayerState {
 		get {
-			if (m_PlayerState == null) {
+			if(m_PlayerState == null) {
 				m_PlayerState = GetComponent<PlayerStates>();
 			}
 
@@ -79,7 +66,7 @@ public class Player : MonoBehaviour {
 	void Awake() {
 		inputController = GameManager.Instance.InputController;
 		GameManager.Instance.LocalPlayer = this;
-		if (mouseControl.lockMouse) {
+		if(mouseControl.lockMouse) {
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 		}
@@ -103,17 +90,17 @@ public class Player : MonoBehaviour {
 	void Move() {
 		float moveSpeed = walkSpeed;
 
-		if (inputController.IsSprinting) {
+		if(inputController.IsSprinting) {
 			moveSpeed = sprintSpeed;
 		}
 
 		Vector2 direction = new Vector2(inputController.vertical * moveSpeed, inputController.horizontal * moveSpeed);
 
-		if (direction != Vector2.zero) {
+		if(direction != Vector2.zero) {
 			footStepsAudio.Play();
 		}
 
-		MoveController.Move(transform.forward * direction.x * SpeedFactor + transform.right * direction.y * SpeedFactor);
+		MoveController.SimpleMove(transform.forward * direction.x * SpeedFactor + transform.right * direction.y * SpeedFactor);
 		//MoveController.Move(direction);
 
 	}

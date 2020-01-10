@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using UnityEngine;
 
 [RequireComponent(typeof(Pathfinder))]
 [RequireComponent(typeof(Scanner))]
+[RequireComponent(typeof(EnemyHealth))]
 public class EnemyPlayer : MonoBehaviour {
 	Pathfinder pathfinder;
 	Scanner playerScanner;
@@ -13,10 +13,21 @@ public class EnemyPlayer : MonoBehaviour {
 
 	List<Player> targets;
 
+	EnemyHealth m_EnemyHealth;
+	public EnemyHealth EnemyHealth {
+		get {
+			if(m_EnemyHealth == null) {
+				m_EnemyHealth = GetComponent<EnemyHealth>();
+			}
+			return m_EnemyHealth;
+		}
+	}
+
 	private void Start() {
 		pathfinder = GetComponent<Pathfinder>();
 		playerScanner = GetComponent<Scanner>();
 		playerScanner.OnScanReady += this.Scanner_OnScanReady;
+		Scanner_OnScanReady();
 	}
 
 	private void Scanner_OnScanReady() {

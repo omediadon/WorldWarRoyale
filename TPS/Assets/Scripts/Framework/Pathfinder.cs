@@ -35,7 +35,7 @@ public class Pathfinder : MonoBehaviour {
 	}
 
 	private void Update() {
-		if(DestinationReached == true) {
+		if(DestinationReached == true && !Agent.hasPath) {
 			return;
 		}
 
