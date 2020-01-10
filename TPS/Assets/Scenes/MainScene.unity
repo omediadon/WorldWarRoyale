@@ -1923,7 +1923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanSpeed: 1
-  ScanRange: 10
+  ScanRange: 20
   fieldOfView: 90
   mask:
     serializedVersion: 2
@@ -1940,7 +1940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd773073568f2e44ca0e3e0775d462c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 10
+  hitPoints: 1
 --- !u!114 &846466231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3178,7 +3178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968fdcc894155014b8a52d9a1f67f884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpeedFactor: 0.05
+  SpeedFactor: 1
   walkSpeed: 3
   sprintSpeed: 6
   mouseControl:
