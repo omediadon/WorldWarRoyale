@@ -20,7 +20,7 @@ public class Pathfinder : MonoBehaviour {
 		}
 		set {
 			this.m_DestinationReached = value;
-			if (value == true) {
+			if(value == true) {
 				OnDestinationReached?.Invoke();
 			}
 		}
@@ -35,11 +35,11 @@ public class Pathfinder : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (DestinationReached == true) {
+		if(DestinationReached == true) {
 			return;
 		}
 
-		if (Agent.remainingDistance <= remainingDistThreshold) {
+		if(Agent.remainingDistance <= remainingDistThreshold) {
 			DestinationReached = true;
 		}
 	}

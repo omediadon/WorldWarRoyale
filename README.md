@@ -49,6 +49,9 @@
 - Weapon GUI
 - Changed Aim, finally, but not quite ready
 
+##### Changed
+- Made Scanner generic so it look for anytype of defined target type - Version: 0.0.4.2
+
 ##### Removed
 
 - The old testing-cube! :dizzy_face:

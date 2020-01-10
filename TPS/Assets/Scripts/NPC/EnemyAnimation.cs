@@ -16,7 +16,7 @@ public class EnemyAnimation : MonoBehaviour {
 
 	private void Update() {
 		float velocityZ = (transform.position - lastPosition).magnitude / Time.deltaTime;
-		animator.SetFloat("Vertical", velocityZ /pathfinder.Agent.speed);
+		animator.SetFloat("Vertical", velocityZ / pathfinder.Agent.speed);
 
 		lastPosition = transform.position;
 	}

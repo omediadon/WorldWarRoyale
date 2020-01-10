@@ -3,58 +3,52 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
 public class Scanner : MonoBehaviour {
 	[Range(0.2f, 2f)]
 	[SerializeField]
 	float scanSpeed = 0.2f;
+	[Range(0.01f, 50.0f)]
+	public float ScanRange = 5;
 	[Range(70.0f, 110.0f)]
 	[SerializeField]
 	float fieldOfView = 90f;
 	[SerializeField]
 	LayerMask mask = new LayerMask();
 
-	SphereCollider rangeTrigger;
-	List<Player> targets;
 
-	Player m_selectedTarget;
 
-	public Player SelectedTarget {
-		get { 
-			return this.m_selectedTarget; 
-		}
-		set { 
-			this.m_selectedTarget = value;
-
-			if(m_selectedTarget == null) {
-				return;
-			}
-
-			OnTargetSelected?.Invoke(m_selectedTarget.transform.position);
-		}
-	}
-
-	public event Action<Vector3> OnTargetSelected;
+	public event Action OnScanReady;
 
 	private void Start() {
-		targets = new List<Player>();
-		rangeTrigger = GetComponent<SphereCollider>();
 		PrepareScan();
 	}
 
 
 	private void OnDrawGizmos() {
+		Gizmos.color = Color.red;
+		DrawCircle();
+
 		Gizmos.color = Color.cyan;
+		Gizmos.DrawLine(transform.position, transform.position + GetViewAngle(this.fieldOfView / 2) * ScanRange);
+		Gizmos.DrawLine(transform.position, transform.position + GetViewAngle(-fieldOfView / 2) * ScanRange);
 
-		if (SelectedTarget != null) {
-			Gizmos.DrawLine(transform.position, SelectedTarget.transform.position);
+	}
+
+	private void DrawCircle() {
+		float theta = 0;
+		float x = ScanRange * Mathf.Cos(theta);
+		float y = ScanRange * Mathf.Sin(theta);
+		Vector3 pos = transform.position + new Vector3(x, 0, y);
+		Vector3 newPos = pos;
+		Vector3 lastPos = pos;
+		for(theta = 0.1f; theta < Mathf.PI * 2; theta += 0.1f) {
+			x = ScanRange * Mathf.Cos(theta);
+			y = ScanRange * Mathf.Sin(theta);
+			newPos = transform.position + new Vector3(x, 0, y);
+			Gizmos.DrawLine(pos, newPos);
+			pos = newPos;
 		}
-
-		Gizmos.color = Color.green;
-
-		Gizmos.DrawLine(transform.position, transform.position + GetViewAngle(this.fieldOfView / 2) * this.GetComponent<SphereCollider>().radius);
-		Gizmos.DrawLine(transform.position, transform.position + GetViewAngle(-fieldOfView / 2) * GetComponent<SphereCollider>().radius);
-
+		Gizmos.DrawLine(pos, lastPos);
 	}
 
 	Vector3 GetViewAngle(float angle) {
@@ -62,42 +56,32 @@ public class Scanner : MonoBehaviour {
 		return new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad));
 	}
 
-	void ScanForTargets() {
-		Collider[] results = Physics.OverlapSphere(transform.position, rangeTrigger.radius);
+	public List<T> ScanForTargets<T>() {
+		Collider[] results = Physics.OverlapSphere(transform.position, ScanRange);
 
-		for (int i = 0; i < results.Length; i++) {
-			var player = results[i].gameObject.GetComponent<Player>();
-			if (player == null || !IsInLineOfSight(Vector3.up, player.transform.position)) {
+		List<T> targets = new List<T>();
+
+		for(int i = 0; i < results.Length; i++) {
+			var target = results[i].gameObject.GetComponent<T>();
+			if(target == null || !IsInLineOfSight(Vector3.up, results[i].transform.position)) {
 				continue;
 			}
 
-			targets.Add(player);
+			targets.Add(target);
 
-		}
-
-		if (targets.Count == 1) {
-			SelectedTarget = targets[0];
-		}
-		else {
-			float closest = rangeTrigger.radius;
-			foreach (var target in targets) {
-				if (Vector3.Distance(transform.position, target.transform.position) < closest) {
-					closest = Vector3.Distance(transform.position, target.transform.position);
-					SelectedTarget = target;
-				}
-			}
 		}
 
 		PrepareScan();
 
+		return targets;
 	}
 
 	bool IsInLineOfSight(Vector3 eyeHeight, Vector3 targetPosition) {
 		Vector3 direction = targetPosition - transform.position;
 
-		if (Vector3.Angle(transform.forward, direction.normalized) < fieldOfView / 2) {
+		if(Vector3.Angle(transform.forward, direction.normalized) < fieldOfView / 2) {
 			float distance = Vector3.Distance(transform.position, targetPosition);
-			if (Physics.Raycast(transform.position + eyeHeight, direction.normalized, distance, mask)) {
+			if(Physics.Raycast(transform.position + eyeHeight, direction.normalized, distance, mask)) {
 				return false;
 			}
 			return true;
@@ -106,11 +90,10 @@ public class Scanner : MonoBehaviour {
 	}
 
 	void PrepareScan() {
-		if (SelectedTarget != null) {
-			return;
-		}
 
-		GameManager.Instance.Timer.Add(ScanForTargets, scanSpeed);
+		GameManager.Instance.Timer.Add(() => {
+			OnScanReady?.Invoke();
+		}, scanSpeed);
 	}
 
 }

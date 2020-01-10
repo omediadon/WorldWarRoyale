@@ -15,7 +15,7 @@ public class WayPointController : MonoBehaviour {
 
 	public void SetNextWayPoint() {
 		currentWayPoint++;
-		if (currentWayPoint == wayPoints.Length) {
+		if(currentWayPoint == wayPoints.Length) {
 			currentWayPoint = 0;
 		}
 
@@ -31,7 +31,7 @@ public class WayPointController : MonoBehaviour {
 
 		Vector3 previousWayPoint = Vector3.zero;
 
-		foreach (var wayPoint in GetWayPoints()) {
+		foreach(var wayPoint in GetWayPoints()) {
 			Vector3 currentWayPoint = wayPoint.transform.position;
 			Gizmos.DrawSphere(currentWayPoint, .1f);
 			if(previousWayPoint != Vector3.zero) {
