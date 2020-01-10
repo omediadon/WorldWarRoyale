@@ -10,17 +10,8 @@ public class Player : MonoBehaviour {
 		public Vector2 sensetivity = Vector2.one;
 	}
 
-	[Range(0.5f, 5f)]
 	[SerializeField]
-	float SpeedFactor = 1f;
-	[SerializeField]
-	float walkSpeed = 4;
-	/*
-	[SerializeField]
-	float crouchSpeed = 3;
-	*/
-	[SerializeField]
-	float sprintSpeed = 5;
+	SoldierPro settings = null;
 	[Header("Mouse controls")]
 	[SerializeField]
 	MouseInput mouseControl = new MouseInput();
@@ -88,10 +79,10 @@ public class Player : MonoBehaviour {
 	}
 
 	void Move() {
-		float moveSpeed = walkSpeed;
+		float moveSpeed = settings.WalkSpeed;
 
 		if(inputController.IsSprinting) {
-			moveSpeed = sprintSpeed;
+			moveSpeed = settings.SprintSpeed;
 		}
 
 		Vector2 direction = new Vector2(inputController.vertical * moveSpeed, inputController.horizontal * moveSpeed);
@@ -100,7 +91,7 @@ public class Player : MonoBehaviour {
 			footStepsAudio.Play();
 		}
 
-		MoveController.SimpleMove(transform.forward * direction.x * SpeedFactor + transform.right * direction.y * SpeedFactor);
+		MoveController.SimpleMove(transform.forward * direction.x * settings.SpeedFactor + transform.right * direction.y * settings.SpeedFactor);
 		//MoveController.Move(direction);
 
 	}

@@ -12,10 +12,7 @@ public class RagDoll : MonoBehaviour {
 	}
 
 	private void Update() {
-		if(Animator.enabled) {
-			Animator.SetBool("IsWalking", false);
-			Animator.SetFloat("Vertical", 0);
-		}
+		
 	}
 
 	public void EnableRagdoll(bool enable) {

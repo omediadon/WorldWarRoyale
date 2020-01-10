@@ -3,9 +3,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Pathfinder))]
-[RequireComponent(typeof(Scanner))]
 [RequireComponent(typeof(EnemyHealth))]
 public class EnemyPlayer : MonoBehaviour {
+	[SerializeField]
+	SoldierPro settings = null;
+
 	Pathfinder pathfinder;
 	Scanner playerScanner;
 
@@ -23,12 +25,18 @@ public class EnemyPlayer : MonoBehaviour {
 		}
 	}
 
-	private void Start() {
+	private void Awake() {
 		pathfinder = GetComponent<Pathfinder>();
+		pathfinder.OnAgentInit += () => {
+			pathfinder.Agent.speed = settings.WalkSpeed;
+		};
 		playerScanner = GetComponent<Scanner>();
-		playerScanner.OnScanReady += this.Scanner_OnScanReady;
-		Scanner_OnScanReady();
+		if(playerScanner != null) {
+			playerScanner.OnScanReady += this.Scanner_OnScanReady;
+			Scanner_OnScanReady();
+		}
 	}
+
 
 	private void Scanner_OnScanReady() {
 		if(priorityTarget != null) {
