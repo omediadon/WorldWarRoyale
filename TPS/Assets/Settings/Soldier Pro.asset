@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Soldier Pro
   m_EditorClassIdentifier: 
   SpeedFactor: 1
-  walkSpeed: 4
-  crouchSpeed: 3
-  sprintSpeed: 5
+  CrouchSpeed: 3
+  WalkSpeed: 4
+  RunSpeed: 5
+  SprintSpeed: 8
