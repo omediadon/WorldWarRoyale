@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 public class RagDoll : MonoBehaviour {
-	 Animator Animator;
-	 Rigidbody[] bodyParts;
+	Animator Animator;
+	Rigidbody[] bodyParts;
 
 
 	private void Awake() {
@@ -12,7 +12,7 @@ public class RagDoll : MonoBehaviour {
 	}
 
 	private void Update() {
-		
+
 	}
 
 	public void EnableRagdoll(bool enable) {

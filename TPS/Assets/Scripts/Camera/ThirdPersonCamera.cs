@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public class ThirdPersonCamera: MonoBehaviour {
+public class ThirdPersonCamera : MonoBehaviour {
 	[Serializable]
 	class CameraRig {
 		public Vector3 cameraOffset = Vector3.zero;

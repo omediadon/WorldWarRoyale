@@ -10,7 +10,7 @@ public class PlayerShoot : WeaponController {
 	}
 
 	private void PlayerHealth_OnReset() {
-		playerAlive = false;
+		playerAlive = true;
 	}
 
 	private void PlayerHealth_OnDeath() {

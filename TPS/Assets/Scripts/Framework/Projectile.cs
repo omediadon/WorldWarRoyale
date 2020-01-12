@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour {
 
 		RaycastHit hit;
 
-		if (Physics.Raycast(transform.position, transform.forward, out hit, 5f)) {
+		if(Physics.Raycast(transform.position, transform.forward, out hit, 5f)) {
 			CheckDistructible(hit.transform);
 		}
 	}
@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour {
 	void CheckDistructible(Transform other) {
 
 		var distructible = other.GetComponent<Distructible>();
-		if (distructible == null) {
+		if(distructible == null) {
 			return;
 		}
 		distructible.TakeDamege(damage);

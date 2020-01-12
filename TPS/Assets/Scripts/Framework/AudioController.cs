@@ -21,7 +21,7 @@ public class AudioController : MonoBehaviour {
 	}
 
 	public void Play() {
-		if (!canPlay) {
+		if(!canPlay) {
 			return;
 		}
 

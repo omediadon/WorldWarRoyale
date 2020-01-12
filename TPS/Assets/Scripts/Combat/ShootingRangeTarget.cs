@@ -15,12 +15,12 @@ public class ShootingRangeTarget : Distructible {
 
 	// Update is called once per frame
 	void Update() {
-		if (!requireRotation) {
+		if(!requireRotation) {
 			return;
 		}
 
 		transform.rotation = Quaternion.Lerp(transform.rotation, targRotation, rotationSpeed * Time.deltaTime);
-		if (transform.rotation == targRotation) {
+		if(transform.rotation == targRotation) {
 			requireRotation = false;
 			Reset();
 		}

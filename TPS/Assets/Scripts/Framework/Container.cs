@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
 
-public class Container: MonoBehaviour {
+public class Container : MonoBehaviour {
 	List<ContainerItem> items;
 
 	private class ContainerItem {
@@ -35,7 +36,7 @@ public class Container: MonoBehaviour {
 		}
 
 
-		public  void Set(int value) {
+		public void Set(int value) {
 			Maximum += value;
 		}
 	}
@@ -49,7 +50,7 @@ public class Container: MonoBehaviour {
 			Maximum = max,
 			Name = name
 		});
-		
+
 		return items.Last().Id;
 	}
 

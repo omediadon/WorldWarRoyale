@@ -46,7 +46,7 @@ public class WeaponReloader : MonoBehaviour {
 	}
 
 	public void Reload() {
-		if (IsReloading) {
+		if(IsReloading) {
 			return;
 		}
 
@@ -54,7 +54,7 @@ public class WeaponReloader : MonoBehaviour {
 
 		int amountFromInventory = inventory.TakeFromContainer(containerItemId, clipSize - RoundsRemainingInClip);
 
-		if (amountFromInventory > 0) {
+		if(amountFromInventory > 0) {
 			GameManager.Instance.Timer.Add(() => ExecuteReload(amountFromInventory), reloadTime);
 		}
 		else {

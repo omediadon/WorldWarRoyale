@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class InputController: MonoBehaviour {
+public class InputController : MonoBehaviour {
 	public float vertical;
 	public float horizontal;
 	public Vector2 mouseInput;

@@ -27,7 +27,7 @@ public class AmmoCounter : MonoBehaviour {
 	}
 
 	private void Reloader_OnAmmoChanged() {
-		if (text != null) {
+		if(text != null) {
 			text.text = weaponReloader.RoundsRemainingInClip + "/" + weaponReloader.RoundsRemainingInInventory;
 		}
 	}

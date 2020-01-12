@@ -43,7 +43,7 @@ public class WeaponController : MonoBehaviour {
 		if(!canSwitch) {
 			return;
 		}
-		 
+
 		int old = currentWeaponIndex;
 		canFire = false;
 		canSwitch = false;

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-public class PlayerStates: MonoBehaviour {
+public class PlayerStates : MonoBehaviour {
 	public enum EMoveState {
 		WALKING,
 		RUNNING,
 		SPRINTING,
-		CROUCHING	
+		CROUCHING
 	}
 
 	public enum EWeaponState {
@@ -53,11 +53,11 @@ public class PlayerStates: MonoBehaviour {
 		if(InputController.IsSprinting) {
 			MoveState = EMoveState.SPRINTING;
 		}
-		
+
 		if(!InputController.IsSprinting) {
 			MoveState = EMoveState.WALKING;
 		}
-		
+
 		if(InputController.IsCrouching) {
 			MoveState = EMoveState.CROUCHING;
 		}

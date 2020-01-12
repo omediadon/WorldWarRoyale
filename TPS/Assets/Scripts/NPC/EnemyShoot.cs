@@ -5,11 +5,11 @@ public class EnemyShoot : WeaponController {
 	[Range(1f, 5f)]
 	[SerializeField]
 	float shootSpeed = .1f;
-	
+
 	[Range(0.5f, 2f)]
 	[SerializeField]
 	float burstDurationMin = .5f;
-	
+
 	[Range(0.5f, 3f)]
 	[SerializeField]
 	float burstDurationMax = 2f;
@@ -18,7 +18,7 @@ public class EnemyShoot : WeaponController {
 	bool shootfire;
 
 	private void Start() {
-		
+
 		enemyPlayer = GetComponent<EnemyPlayer>();
 		enemyPlayer.OnTargetSelected += this.EnemyPlayer_OnTargetSelected;
 	}

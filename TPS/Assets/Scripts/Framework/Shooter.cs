@@ -33,15 +33,15 @@ public class Shooter : MonoBehaviour {
 	public virtual void Fire() {
 		canFire = false;
 
-		if (Time.time < nextFireAllowed)
+		if(Time.time < nextFireAllowed)
 			return;
 
-		if (reloader != null) {
-			if (reloader.IsReloading) {
+		if(reloader != null) {
+			if(reloader.IsReloading) {
 				return;
 			}
 
-			if (reloader.RoundsRemainingInClip == 0) {
+			if(reloader.RoundsRemainingInClip == 0) {
 				return;
 			}
 
@@ -50,13 +50,13 @@ public class Shooter : MonoBehaviour {
 
 		nextFireAllowed = Time.time + rateOfFire;
 
-		if (AimTarget != null) {
+		if(AimTarget != null) {
 			muzzle.LookAt(AimTarget.position + AimTargetOffset);
 		}
 
 		FireEffect();
 
-		if (projectile != null) {
+		if(projectile != null) {
 			Instantiate(projectile, muzzle.position, muzzle.rotation);
 		}
 
@@ -65,7 +65,7 @@ public class Shooter : MonoBehaviour {
 
 
 	public void WeaponReload() {
-		if (reloader == null) {
+		if(reloader == null) {
 			return;
 		}
 
@@ -79,7 +79,7 @@ public class Shooter : MonoBehaviour {
 	}
 
 	private void FireEffect() {
-		if (muzzleFire == null)
+		if(muzzleFire == null)
 			return;
 
 		muzzleFire.Play();
