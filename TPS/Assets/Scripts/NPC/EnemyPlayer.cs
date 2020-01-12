@@ -5,6 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Pathfinder))]
 [RequireComponent(typeof(EnemyHealth))]
+[RequireComponent(typeof(EnemyState))]
 public class EnemyPlayer : MonoBehaviour {
 	[SerializeField]
 	SoldierPro settings = null;
@@ -26,6 +27,19 @@ public class EnemyPlayer : MonoBehaviour {
 		}
 	}
 
+
+	public EnemyState EnemyState {
+		get {
+			if(_EnemyState == null) {
+				_EnemyState = GetComponent<EnemyState>();
+			}
+			return _EnemyState;
+		}
+	}
+	private EnemyState _EnemyState;
+
+
+
 	public event Action<Player> OnTargetSelected;
 
 	private void Awake() {
@@ -40,6 +54,15 @@ public class EnemyPlayer : MonoBehaviour {
 		}
 
 		EnemyHealth.OnDeath += this.EnemyHealth_OnDeath;
+		EnemyState.OnModeChanged += this.EnemyState_OnModeChanged;
+	}
+
+	private void EnemyState_OnModeChanged(EnemyState.EMode state) {
+		pathfinder.Agent.speed = settings.WalkSpeed;
+
+		if(state == EnemyState.EMode.AWARE) {
+			pathfinder.Agent.speed = settings.RunSpeed;
+		}
 	}
 
 	private void EnemyHealth_OnDeath() {
