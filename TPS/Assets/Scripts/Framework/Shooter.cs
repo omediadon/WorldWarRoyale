@@ -14,8 +14,8 @@ public class Shooter : MonoBehaviour {
 	[SerializeField]
 	Transform Hand = null;
 	[SerializeField]
-	Transform AimTarget = null;
-
+	public Transform AimTarget = null;
+	public Vector3 AimTargetOffset = Vector3.zero;
 
 	Transform muzzle;
 
@@ -51,7 +51,7 @@ public class Shooter : MonoBehaviour {
 		nextFireAllowed = Time.time + rateOfFire;
 
 		if (AimTarget != null) {
-			muzzle.LookAt(AimTarget);
+			muzzle.LookAt(AimTarget.position + AimTargetOffset);
 		}
 
 		FireEffect();

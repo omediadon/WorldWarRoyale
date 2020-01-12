@@ -57,6 +57,7 @@ public class Scanner : MonoBehaviour {
 	}
 
 	public List<T> ScanForTargets<T>() {
+		print("Scanning");
 		Collider[] results = Physics.OverlapSphere(transform.position, ScanRange);
 
 		List<T> targets = new List<T>();
@@ -81,7 +82,7 @@ public class Scanner : MonoBehaviour {
 
 		if(Vector3.Angle(transform.forward, direction.normalized) < fieldOfView / 2) {
 			float distance = Vector3.Distance(transform.position, targetPosition);
-			if(Physics.Raycast(transform.position + eyeHeight, direction.normalized, distance, mask)) {
+			if(Physics.Raycast(transform.position + eyeHeight + Vector3.forward * .3f, direction.normalized, distance, mask)) {
 				return false;
 			}
 			return true;

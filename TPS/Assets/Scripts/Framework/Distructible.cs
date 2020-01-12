@@ -7,6 +7,7 @@ public class Distructible : MonoBehaviour {
 
 	public event System.Action OnDeath;
 	public event System.Action OnDamageRecieved;
+	public event System.Action OnReset;
 
 	float damageTaken = 0;
 
@@ -38,6 +39,7 @@ public class Distructible : MonoBehaviour {
 
 	public void Reset() {
 		damageTaken = 0;
+		OnReset?.Invoke();
 	}
 
 }

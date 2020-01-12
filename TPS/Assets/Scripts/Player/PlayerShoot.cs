@@ -1,88 +1,35 @@
-﻿using System;
+﻿using UnityEngine;
 
-using UnityEngine;
+[RequireComponent(typeof(Player))]
+public class PlayerShoot : WeaponController {
+	bool playerAlive = true;
 
-public class PlayerShoot : MonoBehaviour {
-	[SerializeField]
-	float weaponSwitchTime = 1;
-	bool canFire = true;
-
-	//bool canSwitch = true;
-
-	Transform weaponHolder;
-
-	[SerializeField]
-	Shooter[] weapons;
-	[SerializeField]
-	private Shooter activeWeapon;
-	[SerializeField]
-	int currentWeaponIndex = 0;
-
-	InputController inputController;
-	Timer timer;
-
-	public event Action OnWeaponSwitch;
-
-	public Shooter ActiveShooter {
-		get {
-			return activeWeapon;
-		}
+	private void Start() {
+		GetComponent<Player>().PlayerHealth.OnDeath += this.PlayerHealth_OnDeath;
+		GetComponent<Player>().PlayerHealth.OnReset += this.PlayerHealth_OnReset;
 	}
 
-	void Awake() {
-		timer = GameManager.Instance.Timer;
-		inputController = GameManager.Instance.InputController;
-		weaponHolder = transform.Find("Weapons");
-		weapons = weaponHolder.GetComponentsInChildren<Shooter>();
-		if (weapons.Length > 0) {
-			DeactivateWeapons();
-			Equip(currentWeaponIndex);
-		}
+	private void PlayerHealth_OnReset() {
+		playerAlive = false;
 	}
 
-	void SwitchWeapon(int direction) {
-		int old = currentWeaponIndex;
-		canFire = false;
-		currentWeaponIndex += direction;
-		if (currentWeaponIndex > weapons.Length - 1) {
-			currentWeaponIndex = 0;
-		}
-		if (currentWeaponIndex < 0) {
-			currentWeaponIndex = weapons.Length - 1;
-		}
-
-		timer.Add(() => {
-			weapons[old].gameObject.SetActive(false);
-			weapons[old].transform.parent = weaponHolder;
-			Equip(currentWeaponIndex);
-
-		}, weaponSwitchTime);
-	}
-
-	void Equip(int index) {
-		activeWeapon = weapons[index];
-		weapons[index].gameObject.SetActive(true);
-		weapons[index].Equip();
-		canFire = true;
-		OnWeaponSwitch?.Invoke();
+	private void PlayerHealth_OnDeath() {
+		playerAlive = false;
 	}
 
 	void Update() {
-		if (inputController.MouseWheelUp) {
+		if(!playerAlive)
+			return;
+
+		if(inputController.MouseWheelUp) {
 			SwitchWeapon(1);
 		}
-		if (inputController.MouseWheelDown) {
+		if(inputController.MouseWheelDown) {
 			SwitchWeapon(-1);
 		}
 
-		if (inputController.Fire1 && canFire) {
-			activeWeapon.Fire();
-		}
-	}
-
-	void DeactivateWeapons() {
-		foreach (Shooter weapon in weapons) {
-			weapon.gameObject.SetActive(false);
+		if(inputController.Fire1 && canFire) {
+			ActiveShooter.Fire();
 		}
 	}
 }

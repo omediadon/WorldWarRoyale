@@ -2,6 +2,7 @@
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerStates))]
+[RequireComponent(typeof(PlayerHealth))]
 public class Player : MonoBehaviour {
 	[System.Serializable]
 	public class MouseInput {
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour {
 			return m_MoveController;
 		}
 	}
+
 	private InputController inputController;
 	Vector2 mouseInput;
 
@@ -53,6 +55,25 @@ public class Player : MonoBehaviour {
 	}
 
 
+
+
+	public PlayerHealth PlayerHealth {
+		get {
+			if(_PlayerHealth == null) {
+				PlayerHealth = GetComponent<PlayerHealth>();
+			}
+			return _PlayerHealth;
+		}
+		set {
+			if(_PlayerHealth != value) {
+				_PlayerHealth = value;
+			}
+		}
+	}
+	private PlayerHealth _PlayerHealth;
+
+
+
 	// Start is called before the first frame update
 	void Awake() {
 		inputController = GameManager.Instance.InputController;
@@ -65,6 +86,10 @@ public class Player : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
+		if(!PlayerHealth.IsAlive) {
+			return;
+		}
+
 		Move();
 		Look();
 	}

@@ -23,7 +23,7 @@ public class ThirdPersonCamera: MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void LateUpdate() {
+	void Update() {
 		if(localPlayer == null) {
 			return;
 		}

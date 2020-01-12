@@ -43,6 +43,7 @@
 - Basic enemy NPC
 - Waypoints system for NPC
 - Enemy shootable 
+- Enemy can now shoot the player and looks for him around 
 
 ##### Fixed
 

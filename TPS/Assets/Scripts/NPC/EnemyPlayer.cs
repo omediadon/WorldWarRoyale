@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -25,6 +26,8 @@ public class EnemyPlayer : MonoBehaviour {
 		}
 	}
 
+	public event Action<Player> OnTargetSelected;
+
 	private void Awake() {
 		pathfinder = GetComponent<Pathfinder>();
 		pathfinder.OnAgentInit += () => {
@@ -35,8 +38,13 @@ public class EnemyPlayer : MonoBehaviour {
 			playerScanner.OnScanReady += this.Scanner_OnScanReady;
 			Scanner_OnScanReady();
 		}
+
+		EnemyHealth.OnDeath += this.EnemyHealth_OnDeath;
 	}
 
+	private void EnemyHealth_OnDeath() {
+		print("dead!");
+	}
 
 	private void Scanner_OnScanReady() {
 		if(priorityTarget != null) {
@@ -53,7 +61,7 @@ public class EnemyPlayer : MonoBehaviour {
 		}
 
 		if(priorityTarget != null) {
-			SetDestination();
+			OnTargetSelected?.Invoke(priorityTarget);
 		}
 	}
 
@@ -69,6 +77,13 @@ public class EnemyPlayer : MonoBehaviour {
 
 	private void SetDestination() {
 		pathfinder.SetTarget(priorityTarget.transform.position);
+	}
+
+	private void Update() {
+		if(priorityTarget == null) {
+			return;
+		}
+		transform.LookAt(priorityTarget.transform);
 	}
 
 
