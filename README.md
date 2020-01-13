@@ -46,6 +46,7 @@
 - Enemy can now shoot the player and looks for him around 
 - Enemy states, Aware or not of our presence
 - Bullet holes appear when bullets hit surface
+- Event Bus system to trigger events more sufficiently
 
 ##### Fixed
 

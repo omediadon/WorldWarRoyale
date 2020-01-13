@@ -64,4 +64,16 @@ public class GameManager {
 			return m_Respawner;
 		}
 	}
+
+
+	public EventBus EventBus {
+		get {
+			if(_EventBus == null) {
+				_EventBus = new EventBus();
+			}
+			return _EventBus;
+		}
+	}
+	private EventBus _EventBus;
+
 }
