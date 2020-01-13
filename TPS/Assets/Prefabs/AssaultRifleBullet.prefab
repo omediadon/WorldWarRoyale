@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3044879887088912388}
   - component: {fileID: 7728436151043909731}
   - component: {fileID: 6491367780302889332}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ARBMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4183018525405505260}
   - component: {fileID: 3152087624071045171}
   - component: {fileID: 1152365977492097749}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AssaultRifleBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,6 +157,8 @@ MonoBehaviour:
   speed: 30
   timeToLive: 5
   damage: 1
+  bulletHole: {fileID: 12828447609839050, guid: 7af8e394b1bc04c47b36f30da53ec005,
+    type: 3}
 --- !u!1 &8134747867162824862
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5086705878759873208}
   - component: {fileID: 511390417254772029}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -18,13 +18,11 @@ public class EnemyShoot : WeaponController {
 	bool shootfire;
 
 	private void Start() {
-
 		enemyPlayer = GetComponent<EnemyPlayer>();
 		enemyPlayer.OnTargetSelected += this.EnemyPlayer_OnTargetSelected;
 	}
 
 	private void EnemyPlayer_OnTargetSelected(Player target) {
-		print("target selected" + target.transform.name);
 		ActiveShooter.AimTarget = target.transform;
 		ActiveShooter.AimTargetOffset = Vector3.up * 1.4f;
 		StartBurst();
