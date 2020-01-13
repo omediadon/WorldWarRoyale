@@ -58,15 +58,17 @@ public class EnemyPlayer : MonoBehaviour {
 	}
 
 	private void EnemyState_OnModeChanged(EnemyState.EMode state) {
-		pathfinder.Agent.speed = settings.WalkSpeed;
-
-		if(state == EnemyState.EMode.AWARE) {
-			pathfinder.Agent.speed = settings.RunSpeed;
+		if(pathfinder.Agent != null) {
+			if(state == EnemyState.EMode.AWARE) {
+				pathfinder.Agent.speed = settings.RunSpeed;
+			}
+			else {
+				pathfinder.Agent.speed = settings.WalkSpeed;
+			}
 		}
 	}
 
 	private void EnemyHealth_OnDeath() {
-		print("dead!");
 	}
 
 	private void Scanner_OnScanReady() {

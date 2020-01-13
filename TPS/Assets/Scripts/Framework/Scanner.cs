@@ -16,7 +16,6 @@ public class Scanner : MonoBehaviour {
 	LayerMask mask = new LayerMask();
 
 
-
 	public event Action OnScanReady;
 
 	private void Start() {
@@ -57,7 +56,6 @@ public class Scanner : MonoBehaviour {
 	}
 
 	public List<T> ScanForTargets<T>() {
-		print("Scanning");
 		Collider[] results = Physics.OverlapSphere(transform.position, ScanRange);
 
 		List<T> targets = new List<T>();
@@ -91,7 +89,6 @@ public class Scanner : MonoBehaviour {
 	}
 
 	void PrepareScan() {
-
 		GameManager.Instance.Timer.Add(() => {
 			OnScanReady?.Invoke();
 		}, scanSpeed);

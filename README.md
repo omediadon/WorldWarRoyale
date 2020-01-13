@@ -45,6 +45,7 @@
 - Enemy shootable 
 - Enemy can now shoot the player and looks for him around 
 - Enemy states, Aware or not of our presence
+- Bullet holes appear when bullets hit surface
 
 ##### Fixed
 
