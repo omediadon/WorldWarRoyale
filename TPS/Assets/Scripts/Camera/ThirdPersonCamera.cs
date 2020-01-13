@@ -23,7 +23,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update() {
+	void LateUpdate() {
 		if(localPlayer == null) {
 			return;
 		}
@@ -38,7 +38,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 			+ localPlayer.transform.up * currentCamera.cameraOffset.y
 			+ localPlayer.transform.right * currentCamera.cameraOffset.x;
 
-		Quaternion targetRotation = Quaternion.LookRotation(cameraLookTarget.position - targetPosition, Vector3.up);
+		Quaternion targetRotation = cameraLookTarget.rotation; //Quaternion.LookRotation(cameraLookTarget.position - targetPosition, Vector3.up);
 
 		transform.position = Vector3.Lerp(transform.position, targetPosition, currentCamera.Damping * Time.deltaTime);
 		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, currentCamera.Damping * Time.deltaTime);
@@ -46,7 +46,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 
 	private void Instance_OnLocalPlayerJoined(Player player) {
 		localPlayer = player;
-		cameraLookTarget = localPlayer.transform.Find("CameraLookTarget");
+		cameraLookTarget = localPlayer.transform.Find("AimPivot");
 
 		if(cameraLookTarget == null) {
 			cameraLookTarget = localPlayer.transform;
