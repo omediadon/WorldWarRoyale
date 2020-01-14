@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Framework.Extensions;
+
 using UnityEngine;
 
 public class Scanner : MonoBehaviour {
@@ -62,7 +64,7 @@ public class Scanner : MonoBehaviour {
 
 		for(int i = 0; i < results.Length; i++) {
 			var target = results[i].gameObject.GetComponent<T>();
-			if(target == null || !IsInLineOfSight(Vector3.up, results[i].transform.position)) {
+			if(target == null || !transform.IsInLineOfSight(results[i].transform.position, fieldOfView, mask, Vector3.up)) {
 				continue;
 			}
 
@@ -73,19 +75,6 @@ public class Scanner : MonoBehaviour {
 		PrepareScan();
 
 		return targets;
-	}
-
-	bool IsInLineOfSight(Vector3 eyeHeight, Vector3 targetPosition) {
-		Vector3 direction = targetPosition - transform.position;
-
-		if(Vector3.Angle(transform.forward, direction.normalized) < fieldOfView / 2) {
-			float distance = Vector3.Distance(transform.position, targetPosition);
-			if(Physics.Raycast(transform.position + eyeHeight + Vector3.forward * .3f, direction.normalized, distance, mask)) {
-				return false;
-			}
-			return true;
-		}
-		return false;
 	}
 
 	void PrepareScan() {

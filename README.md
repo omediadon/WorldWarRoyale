@@ -47,6 +47,7 @@
 - Enemy states, Aware or not of our presence
 - Bullet holes appear when bullets hit surface
 - Event Bus system to trigger events more sufficiently
+- Line of sight check extension for Transform Class
 
 ##### Fixed
 
