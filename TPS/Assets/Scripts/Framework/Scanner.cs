@@ -69,7 +69,6 @@ public class Scanner : MonoBehaviour {
 			}
 
 			targets.Add(target);
-
 		}
 
 		PrepareScan();
