@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 71235172d31cddd48b34443e26c7814b
+guid: b418ba3ede182a44c970c94b87218ef8
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
-      74: -203655887218126122
+      74: -4791504522942941401
     second: TakeCover
   externalObjects: {}
   materials:
@@ -36,7 +36,7 @@ ModelImporter:
     clipAnimations:
     - serializedVersion: 16
       name: TakeCover
-      takeName: mixamo.com
+      takeName: Armature|Armature|mixamo.com|Layer0
       internalID: 0
       firstFrame: 0
       lastFrame: 68
