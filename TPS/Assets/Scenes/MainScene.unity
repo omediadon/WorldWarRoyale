@@ -106,7 +106,7 @@ NavMeshSettings:
     serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.3
-    agentHeight: 2
+    agentHeight: 1.8
     agentSlope: 45
     agentClimb: 0.3
     ledgeDropHeight: 0
@@ -4015,7 +4015,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1364795159
 BoxCollider:
@@ -4453,7 +4453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 308e11fccacbfcd48a04f331b0baf472, type: 2}
   mouseControl:
-    lockMouse: 0
+    lockMouse: 1
     damping: {x: 2, y: 2}
     sensetivity: {x: 5, y: 5}
   footStepsAudio: {fileID: 2133158957}
