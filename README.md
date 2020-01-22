@@ -43,7 +43,7 @@
 - Basic enemy NPC
 - Waypoints system for NPC
 - Enemy shootable 
-- Enemy can now shoot the player and looks for him around 
+- Enemy can now shoot the player and looks for him around - SEARCH AND DESTROY
 - Enemy states, Aware or not of our presence
 - Bullet holes appear when bullets hit surface
 - Event Bus system to trigger events more sufficiently
