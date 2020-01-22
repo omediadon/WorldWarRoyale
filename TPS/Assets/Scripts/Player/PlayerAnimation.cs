@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour {
 	Animator animator;
@@ -19,9 +20,32 @@ public class PlayerAnimation : MonoBehaviour {
 		}
 	}
 
+	private PlayerStates m_PlayerState;
+
+	public PlayerStates PlayerState {
+		get {
+			if(this.m_PlayerAim == null) {
+				m_PlayerState = GameManager.Instance.LocalPlayer.PlayerState;
+			}
+			return this.m_PlayerState;
+		}
+
+		set {
+			this.m_PlayerState = value;
+		}
+	}
+
+
+
 	private void Awake() {
 		animator = GetComponentInChildren<Animator>();
+		GameManager.Instance.OnLocalPlayerJoinedY += this.Instance_OnLocalPlayerJoinedY;
 		inputController = GameManager.Instance.InputController;
+		
+	}
+
+	private void Instance_OnLocalPlayerJoinedY(Player obj) {
+		PlayerState = GameManager.Instance.LocalPlayer.PlayerState;
 	}
 
 	private void Update() {
@@ -31,5 +55,9 @@ public class PlayerAnimation : MonoBehaviour {
 		animator.SetBool("IsWalking", !inputController.IsSprinting);
 
 		animator.SetFloat("AimAngle", PlayerAim.GetAngle());
+		if(PlayerState != null) {
+			animator.SetBool("IsInCover", PlayerState.MoveState == PlayerStates.EMoveState.COVER);
+		}
+		
 	}
 }

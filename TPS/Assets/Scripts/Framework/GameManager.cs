@@ -7,6 +7,7 @@ public class GameManager {
 
 	public event Action<Player> OnLocalPlayerJoined;
 	public event Action<Player> OnLocalPlayerJoinedX;
+	public event Action<Player> OnLocalPlayerJoinedY;
 
 	private static GameManager m_Instance;
 	public static GameManager Instance {
@@ -42,6 +43,7 @@ public class GameManager {
 			m_LocalPlayer = value;
 			OnLocalPlayerJoined?.Invoke(m_LocalPlayer);
 			OnLocalPlayerJoinedX?.Invoke(m_LocalPlayer);
+			OnLocalPlayerJoinedY?.Invoke(m_LocalPlayer);
 		}
 	}
 

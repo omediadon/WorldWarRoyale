@@ -54,9 +54,6 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-
-
-
 	public PlayerHealth PlayerHealth {
 		get {
 			if(_PlayerHealth == null) {
@@ -71,8 +68,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 	private PlayerHealth _PlayerHealth;
-
-
+	private bool isInCover = false;
 
 	// Start is called before the first frame update
 	void Awake() {
@@ -82,6 +78,14 @@ public class Player : MonoBehaviour {
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 		}
+		GameManager.Instance.EventBus.AddListener("CoverToggle", new EventBus.EventListener() {
+			Method = toggleCover,
+			IsSingleShot = false
+		});
+	}
+
+	void toggleCover() {
+		isInCover = !isInCover;
 	}
 
 	// Update is called once per frame
@@ -108,6 +112,9 @@ public class Player : MonoBehaviour {
 
 		if(inputController.IsSprinting) {
 			moveSpeed = settings.SprintSpeed;
+		}
+		if(isInCover) {
+			moveSpeed = settings.WalkSpeed;
 		}
 
 		Vector2 direction = new Vector2(inputController.vertical * moveSpeed, inputController.horizontal * moveSpeed);

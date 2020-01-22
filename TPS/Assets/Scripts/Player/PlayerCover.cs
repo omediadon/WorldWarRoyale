@@ -12,6 +12,7 @@ public class PlayerCover : MonoBehaviour {
 	[SerializeField]
 	LayerMask coverMask = new LayerMask();
 
+
 	public void SetPlayerCoverAllowed(bool value) {
 		canTakeCover = value;
 	}
@@ -27,6 +28,7 @@ public class PlayerCover : MonoBehaviour {
 				return;
 			}
 
+			GameManager.Instance.EventBus.RaiseEvent("CoverToggle"); 
 			transform.rotation = Quaternion.LookRotation(closestHit.normal) * Quaternion.Euler(0, 180, 0);
 
 		}
