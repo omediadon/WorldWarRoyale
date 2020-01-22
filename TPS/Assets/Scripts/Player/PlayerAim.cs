@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
 public class PlayerAim : MonoBehaviour {
-	[Range(-25f, -5f)]
+	[Range(-50f, -25f)]
 	[SerializeField]
-	float minAngle = -25f;
+	float minAngle = -50f;
 
-	[Range(5f, 25f)]
+	[Range(25f, 50f)]
 	[SerializeField]
-	float maxAngle = 25f;
+	float maxAngle = 50f;
 
 
 	public void SetRotation(float amount) {
