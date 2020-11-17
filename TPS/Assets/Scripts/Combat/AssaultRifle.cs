@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AssaultRifle : Shooter
-{
+﻿public class AssaultRifle : Shooter {
 	public override void Fire() {
 		base.Fire();
 
@@ -14,7 +8,7 @@ public class AssaultRifle : Shooter
 	}
 
 	public void Update() {
-		if(GameManager.Instance.InputController.reload) {
+		if(GameManager.Instance.InputController.Reload) {
 			WeaponReload();
 		}
 	}

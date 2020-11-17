@@ -1,21 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerShoot : MonoBehaviour
-{
-	[SerializeField]
-	Shooter assaultRifle;
+[RequireComponent(typeof(Player))]
+public class PlayerShoot : WeaponController {
+	bool playerAlive = true;
 
-	InputController inputController;
+	private void Start() {
+		GetComponent<Player>().PlayerHealth.OnDeath += this.PlayerHealth_OnDeath;
+		GetComponent<Player>().PlayerHealth.OnReset += this.PlayerHealth_OnReset;
+	}
 
-	void Awake() {
-		inputController = GameManager.Instance.InputController;
+	private void PlayerHealth_OnReset() {
+		playerAlive = true;
+	}
+
+	private void PlayerHealth_OnDeath() {
+		playerAlive = false;
 	}
 
 	void Update() {
-		if(inputController.fire1) {
-			assaultRifle.Fire();
+		if(!playerAlive)
+			return;
+
+		if(inputController.MouseWheelUp) {
+			SwitchWeapon(1);
+		}
+		if(inputController.MouseWheelDown) {
+			SwitchWeapon(-1);
+		}
+
+		if(inputController.Fire1 && canFire) {
+			ActiveShooter.Fire();
 		}
 	}
 }

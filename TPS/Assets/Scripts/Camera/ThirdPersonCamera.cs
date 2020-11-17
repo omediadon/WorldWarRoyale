@@ -1,12 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
 
-public class ThirdPersonCamera: MonoBehaviour {
-	PlayerController localPlayer;
+using UnityEngine;
+
+public class ThirdPersonCamera : MonoBehaviour {
+	[Serializable]
+	class CameraRig {
+		public Vector3 cameraOffset = Vector3.zero;
+		public float Damping = 0;
+	}
+
+	[SerializeField]
+	CameraRig defaultCameraRig = null;
+	[SerializeField]
+	CameraRig aimCameraRig = null;
+
+	Player localPlayer;
 	Transform cameraLookTarget;
-	[SerializeField]
-	Vector3 cameraOffset;
-	[SerializeField]
-	float damping;
 
 	// Start is called before the first frame update
 	void Awake() {
@@ -14,20 +23,30 @@ public class ThirdPersonCamera: MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update() {
-		Vector3 targetPosition = cameraLookTarget.position + localPlayer.transform.forward * cameraOffset.z
-			+ localPlayer.transform.up * cameraOffset.y
-			+ localPlayer.transform.right * cameraOffset.x;
+	void LateUpdate() {
+		if(localPlayer == null) {
+			return;
+		}
 
-		Quaternion targetRotation = Quaternion.LookRotation(cameraLookTarget.position - targetPosition, Vector3.up);
+		CameraRig currentCamera = defaultCameraRig;
 
-		transform.position = Vector3.Lerp(transform.position, targetPosition, damping * Time.deltaTime);
-		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, damping * Time.deltaTime);
+		if(localPlayer.PlayerState.WeaponState == PlayerStates.EWeaponState.AIMING || localPlayer.PlayerState.WeaponState == PlayerStates.EWeaponState.AIMINGFIRING) {
+			currentCamera = aimCameraRig;
+		}
+
+		Vector3 targetPosition = cameraLookTarget.position + localPlayer.transform.forward * currentCamera.cameraOffset.z
+			+ localPlayer.transform.up * currentCamera.cameraOffset.y
+			+ localPlayer.transform.right * currentCamera.cameraOffset.x;
+
+		Quaternion targetRotation = cameraLookTarget.rotation; //Quaternion.LookRotation(cameraLookTarget.position - targetPosition, Vector3.up);
+
+		transform.position = Vector3.Lerp(transform.position, targetPosition, currentCamera.Damping * Time.deltaTime);
+		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, currentCamera.Damping * Time.deltaTime);
 	}
 
-	private void Instance_OnLocalPlayerJoined(PlayerController player) {
+	private void Instance_OnLocalPlayerJoined(Player player) {
 		localPlayer = player;
-		cameraLookTarget = localPlayer.transform.Find("CameraLookTarget");
+		cameraLookTarget = localPlayer.transform.Find("AimPivot");
 
 		if(cameraLookTarget == null) {
 			cameraLookTarget = localPlayer.transform;

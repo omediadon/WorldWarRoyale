@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using UnityEngine;
 
-public class Timer : MonoBehaviour
-{
+public class Timer : MonoBehaviour {
 	private class TimedEvent {
 		public float TimeToExecute;
 
@@ -36,7 +35,7 @@ public class Timer : MonoBehaviour
 			return;
 		}
 
-		for(int i = 0; i < events.Count ; i++) {
+		for(int i = 0; i < events.Count; i++) {
 			var timedEvent = events[i];
 
 			if(timedEvent.TimeToExecute <= Time.time) {

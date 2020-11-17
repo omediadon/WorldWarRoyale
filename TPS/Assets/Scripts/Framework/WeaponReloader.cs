@@ -1,28 +1,42 @@
 ﻿using System;
+
 using UnityEngine;
 
-public class WeaponReloader: MonoBehaviour {
+public class WeaponReloader : MonoBehaviour {
 	[SerializeField]
-	int clipSize;
+	int clipSize = 30;
 	[SerializeField]
-	float reloadTime;
+	float reloadTime = 1;
 	[SerializeField]
-	int maxAmmo;
+	int maxAmmo = 300;
 	[SerializeField]
-	Container inventory;
+	Container inventory = null;
+	[SerializeField]
+	EWeaponType weaponType = EWeaponType.SCARH;
 
-	[SerializeField]
-	int shotsFiredInClip;
+	int shotsFiredInClip = 0;
 
 	Guid containerItemId;
 
+	public event Action OnAmmoChanged;
+
 	private void Awake() {
-		GameManager.Instance.Timer.Add(() => containerItemId = inventory.Add(this.name, maxAmmo), 0.01f);
+		GameManager.Instance.OnLocalPlayerJoined += this.Instance_OnLocalPlayerJoined;
+	}
+
+	private void Instance_OnLocalPlayerJoined(Player obj) {
+		containerItemId = inventory.Add(weaponType.ToString(), maxAmmo);
 	}
 
 	public int RoundsRemainingInClip {
 		get {
 			return clipSize - shotsFiredInClip;
+		}
+	}
+
+	public int RoundsRemainingInInventory {
+		get {
+			return inventory.LeftInInventory(containerItemId);
 		}
 	}
 
@@ -38,15 +52,13 @@ public class WeaponReloader: MonoBehaviour {
 
 		IsReloading = true;
 
-		print("round in this clip: " + RoundsRemainingInClip);
-		int amountFromInventory = inventory.TakeFromContainer(containerItemId, clipSize - RoundsRemainingInClip );
+		int amountFromInventory = inventory.TakeFromContainer(containerItemId, clipSize - RoundsRemainingInClip);
 
-		if(amountFromInventory > -0) {
+		if(amountFromInventory > 0) {
 			GameManager.Instance.Timer.Add(() => ExecuteReload(amountFromInventory), reloadTime);
 		}
 		else {
 			IsReloading = false;
-			print("inventory empty");
 		}
 
 	}
@@ -54,12 +66,17 @@ public class WeaponReloader: MonoBehaviour {
 	private void ExecuteReload(int amount) {
 
 		shotsFiredInClip -= amount;
-		print("amount added: " + amount);
 
 		IsReloading = false;
+		HandleAmmoChange();
 	}
 
 	public void TakeFromClip(int rounds) {
 		shotsFiredInClip += rounds;
+		HandleAmmoChange();
+	}
+
+	public void HandleAmmoChange() {
+		OnAmmoChanged?.Invoke();
 	}
 }

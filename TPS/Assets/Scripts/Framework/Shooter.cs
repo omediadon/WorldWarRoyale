@@ -1,29 +1,33 @@
 ﻿using UnityEngine;
 
-public class Shooter: MonoBehaviour {
+public class Shooter : MonoBehaviour {
 	[SerializeField]
-	float rateOfFire;
+	float rateOfFire = 1000;
 	[SerializeField]
-	Projectile projectile;
+	Projectile projectile = null;
 
 	[HideInInspector]
-	public float nextFireAllowed;
+	public float nextFireAllowed = 0;
 	[HideInInspector]
-	public bool canFire;
+	public bool canFire = true;
 
 	[SerializeField]
-	Transform Hand;
+	Transform Hand = null;
+	[SerializeField]
+	public Transform AimTarget = null;
+	public Vector3 AimTargetOffset = Vector3.zero;
 
 	Transform muzzle;
 
-	private WeaponReloader reloader;
+	[HideInInspector]
+	public WeaponReloader reloader;
+
+	private ParticleSystem muzzleFire;
 
 	void Awake() {
-		muzzle = transform.Find("Muzzle");
-
+		muzzle = transform.Find("Model/Muzzle");
 		reloader = GetComponent<WeaponReloader>();
-
-		transform.SetParent(Hand);
+		muzzleFire = muzzle.GetComponent<ParticleSystem>();
 	}
 
 	public virtual void Fire() {
@@ -46,7 +50,15 @@ public class Shooter: MonoBehaviour {
 
 		nextFireAllowed = Time.time + rateOfFire;
 
-		Instantiate(projectile, muzzle.position, muzzle.rotation);
+		if(AimTarget != null) {
+			muzzle.LookAt(AimTarget.position + AimTargetOffset);
+		}
+
+		FireEffect();
+
+		if(projectile != null) {
+			Instantiate(projectile, muzzle.position, muzzle.rotation);
+		}
 
 		canFire = true;
 	}
@@ -59,4 +71,20 @@ public class Shooter: MonoBehaviour {
 
 		reloader.Reload();
 	}
+
+	public void Equip() {
+		transform.SetParent(Hand);
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = Quaternion.identity;
+	}
+
+	private void FireEffect() {
+		if(muzzleFire == null)
+			return;
+
+		muzzleFire.Play();
+	}
+
+
+
 }
