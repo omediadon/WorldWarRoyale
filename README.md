@@ -1,7 +1,7 @@
 # WorldWarRoyale
 
 
-### Change Log
+## Change Log
 
 ### [0.0.1] - 21/12/2019
 
@@ -21,7 +21,7 @@
 - Fixed LFS
 - Some Container routines
 
-### [0.0.3.0] - 23/12/2019
+### [0.0.3] - 23/12/2019
 
 ##### Added
 
@@ -56,15 +56,31 @@
 - Changed Aim, finally, but not quite ready
 
 ##### Changed
-- Made Scanner generic so it look for anytype of defined target type - Version: 0.0.4.2
+- Made Scanner generic so it look for any type of defined target type
 
 ##### Removed
 
 - The old testing-cube! :dizzy_face:
 
+### [0.0.5.0] - 11/06/2023
+
+##### Changed
+
+- Update support to Unity3D 2022.3
+
+## To Do List
+
+- Update the bullet holes
+- Add new enemies
+- Improve enemies AI
+- Improve aiming system
+- Create inventory UI
+- Make spawner pools
+- Make this a multiplayer game
+
 
 
 [0.0.1]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.2...0.0.3.0
 [0.0.2]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.2...0.0.3.0
-[0.0.3.0]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.2...0.0.3.0
+[0.0.3]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.2...0.0.3.0
 [0.0.4]: https://github.com/omediadon/WorldWarRoyale/compare/0.0.3.0...0.0.4
