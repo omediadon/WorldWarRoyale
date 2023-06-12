@@ -68,6 +68,12 @@
 
 - Update support to Unity3D 2022.3
 
+### [0.0.5.1] - 11/06/2023
+
+##### Added
+
+- Integrated CircleCI
+
 ## To Do List
 
 - Update the bullet holes
