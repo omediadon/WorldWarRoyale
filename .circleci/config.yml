@@ -6,7 +6,10 @@ orbs:
 workflows:
   build-unity-project:
     jobs:
-      - unity/build:
+      - unity/build:  
+          filters:
+            branches:
+              only: master
           name: 'build-Windows64-il2cpp'
           step-name: 'Build StandaloneWindows64 il2cpp'
           unity-license-var-name: 'UNITY_ENCODED_LICENSE'
