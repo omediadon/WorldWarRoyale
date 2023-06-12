@@ -77,10 +77,10 @@
 ##### Fixed
 
 - Fixed enemy death
+- Fixed bullet holes being drawn on the wrong surfaces
 
 ## To Do List
 
-- Update the bullet holes
 - Add new enemies
 - Improve enemies AI
 - Improve aiming system
