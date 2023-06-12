@@ -10,6 +10,13 @@ public class EnemyPlayer : MonoBehaviour {
 	[SerializeField]
 	SoldierPro settings = null;
 
+	[SerializeField]
+	GameObject destroyAfterDeath;
+
+	[Range(1f, 5f)]
+	[SerializeField]
+	float destroyAfterSeconds = 2.5f;
+
 	Pathfinder pathfinder;
 	Scanner playerScanner;
 
@@ -49,12 +56,12 @@ public class EnemyPlayer : MonoBehaviour {
 		};
 		playerScanner = GetComponent<Scanner>();
 		if(playerScanner != null) {
-			playerScanner.OnScanReady += this.Scanner_OnScanReady;
+			playerScanner.OnScanReady += Scanner_OnScanReady;
 			Scanner_OnScanReady();
 		}
 
-		EnemyHealth.OnDeath += this.EnemyHealth_OnDeath;
-		EnemyState.OnModeChanged += this.EnemyState_OnModeChanged;
+		EnemyHealth.OnDeath += EnemyHealth_OnDeath;
+		EnemyState.OnModeChanged += EnemyState_OnModeChanged;
 	}
 
 	private void EnemyState_OnModeChanged(EnemyState.EMode state) {
@@ -69,6 +76,7 @@ public class EnemyPlayer : MonoBehaviour {
 	}
 
 	private void EnemyHealth_OnDeath() {
+		Destroy(destroyAfterDeath, destroyAfterSeconds);
 	}
 
 	private void Scanner_OnScanReady() {
@@ -108,8 +116,9 @@ public class EnemyPlayer : MonoBehaviour {
 		if(priorityTarget == null) {
 			return;
 		}
-		transform.LookAt(priorityTarget.transform);
+		if(EnemyHealth != null && EnemyHealth.IsAlive) {
+			transform.LookAt(priorityTarget.transform);
+		}
 	}
-
 
 }

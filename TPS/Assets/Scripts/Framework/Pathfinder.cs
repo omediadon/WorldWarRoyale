@@ -9,10 +9,10 @@ public class Pathfinder : MonoBehaviour {
 	[HideInInspector]
 	public NavMeshAgent Agent {
 		get {
-			return this.m_Agent;
+			return m_Agent;
 		}
 		set {
-			this.m_Agent = value;
+			m_Agent = value;
 			if(value != null) {
 				OnAgentInit?.Invoke();
 			}
@@ -28,10 +28,10 @@ public class Pathfinder : MonoBehaviour {
 	bool m_DestinationReached;
 	public bool DestinationReached {
 		get {
-			return this.m_DestinationReached;
+			return m_DestinationReached;
 		}
 		set {
-			this.m_DestinationReached = value;
+			m_DestinationReached = value;
 			if(value == true) {
 				OnDestinationReached?.Invoke();
 			}
