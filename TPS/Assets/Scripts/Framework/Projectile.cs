@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Framework.Extensions;
+
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour {
@@ -11,6 +13,8 @@ public class Projectile : MonoBehaviour {
 	float damage = 1;
 	[SerializeField]
 	Transform bulletHole = null;
+	[SerializeField]
+	LayerMask bulletHoleLayerMask;
 
 	Vector3 destination = Vector3.zero;
 
@@ -37,6 +41,11 @@ public class Projectile : MonoBehaviour {
 
 		if(Physics.Raycast(transform.position, transform.forward, out hit, 5f)) {
 			CheckDistructible(hit);
+
+			if(  bulletHoleLayerMask.Contains(hit.transform.gameObject.layer)) {
+				Transform hole = Instantiate(bulletHole, destination, Quaternion.LookRotation(hit.normal) * Quaternion.Euler(0, 180, 0));
+				hole.SetParent(hit.transform);
+			}
 		}
 	}
 
@@ -45,10 +54,6 @@ public class Projectile : MonoBehaviour {
 		var distructible = hit.transform.GetComponent<Distructible>();
 
 		destination = hit.point + hit.normal * 0.005f;
-
-		Transform hole = Instantiate(bulletHole, destination, Quaternion.LookRotation(hit.normal) * Quaternion.Euler(0, 180, 0));
-
-		hole.SetParent(hit.transform);
 
 		if(distructible == null) {
 			return;

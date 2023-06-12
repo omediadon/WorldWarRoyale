@@ -77,10 +77,12 @@ public class EnemyPlayer : MonoBehaviour {
 
 	private void EnemyHealth_OnDeath() {
 		Destroy(destroyAfterDeath, destroyAfterSeconds);
+		playerScanner.OnScanReady -= Scanner_OnScanReady;
+		playerScanner.StopAllCoroutines();
 	}
 
 	private void Scanner_OnScanReady() {
-		if(priorityTarget != null) {
+		if(priorityTarget != null || !EnemyHealth.IsAlive) {
 			return;
 		}
 
