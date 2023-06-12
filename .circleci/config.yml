@@ -3,6 +3,9 @@ orbs:
   unity: game-ci/unity@1.4.0
 workflows:
   test-build-with-executors:
+    filters:
+      branches:
+        only: master, develop
     jobs:
       - checkout
       - unity/test:
