@@ -2,6 +2,9 @@
 
 [RequireComponent(typeof(EnemyPlayer))]
 public class EnemyShoot : WeaponController {
+	[SerializeField]
+	bool shouldShoot = false;
+
 	[Range(1f, 5f)]
 	[SerializeField]
 	float shootSpeed = .1f;
@@ -19,7 +22,8 @@ public class EnemyShoot : WeaponController {
 
 	private void Start() {
 		enemyPlayer = GetComponent<EnemyPlayer>();
-		enemyPlayer.OnTargetSelected += this.EnemyPlayer_OnTargetSelected;
+		if(shouldShoot)
+			enemyPlayer.OnTargetSelected += EnemyPlayer_OnTargetSelected;
 	}
 
 	private void EnemyPlayer_OnTargetSelected(Player target) {
