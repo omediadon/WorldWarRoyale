@@ -3,12 +3,12 @@ orbs:
   unity: game-ci/unity@1.4.0
 workflows:
   test-build-with-executors:
-    filters:
-      branches:
-        only: master, develop
     jobs:
       - checkout
       - unity/test:
+          filters:
+            branches:
+              only: master, develop
           context: unity
           executor:
             editor_version: 2022.3.1f1
@@ -23,6 +23,9 @@ workflows:
           unity-password-var-name: UNITY_PASSWORD
           unity-username-var-name: UNITY_USERNAME
       - unity/build:
+          filters:
+            branches:
+              only: master, develop
           build-target: StandaloneLinux64
           compress: true
           context: unity
@@ -40,6 +43,9 @@ workflows:
           unity-password-var-name: UNITY_PASSWORD
           unity-username-var-name: UNITY_USERNAME
       - unity/test:
+          filters:
+            branches:
+              only: master, develop
           context: unity
           executor:
             editor_version: 2022.3.1f1
@@ -54,6 +60,9 @@ workflows:
           unity-password-var-name: UNITY_PASSWORD
           unity-username-var-name: UNITY_USERNAME
       - unity/build:
+          filters:
+            branches:
+              only: master, develop
           build-target: StandaloneWindows64
           compress: true
           context: unity
@@ -71,6 +80,9 @@ workflows:
           unity-password-var-name: UNITY_PASSWORD
           unity-username-var-name: UNITY_USERNAME
       - unity/test:
+          filters:
+            branches:
+              only: master, develop
           context: unity
           executor:
             editor_version: 2021.3.1f1
@@ -84,6 +96,9 @@ workflows:
           unity-password-var-name: UNITY_PASSWORD
           unity-username-var-name: UNITY_USERNAME
       - unity/build:
+          filters:
+            branches:
+              only: master, develop
           build-target: StandaloneOSX
           compress: true
           context: unity
