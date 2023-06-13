@@ -78,6 +78,8 @@
 
 - Fixed enemy death
 - Fixed bullet holes being drawn on the wrong surfaces
+- Fixed aming up and down animation 
+- Fixed camera look target
 
 ## To Do List
 

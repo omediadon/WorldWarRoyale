@@ -46,7 +46,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 
 	private void Instance_OnLocalPlayerJoined(Player player) {
 		localPlayer = player;
-		cameraLookTarget = localPlayer.transform.Find("AimPivot");
+		cameraLookTarget = localPlayer.transform.Find("CamerTarget");
 
 		if(cameraLookTarget == null) {
 			cameraLookTarget = localPlayer.transform;

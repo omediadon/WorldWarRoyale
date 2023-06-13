@@ -3,11 +3,11 @@
 public class PlayerAim : MonoBehaviour {
 	[Range(-50f, -25f)]
 	[SerializeField]
-	float minAngle = -50f;
+	float minAngle = -35f;
 
 	[Range(25f, 50f)]
 	[SerializeField]
-	float maxAngle = 50f;
+	float maxAngle = 35f;
 
 
 	public void SetRotation(float amount) {
@@ -27,5 +27,8 @@ public class PlayerAim : MonoBehaviour {
 			return angle - 180;
 		}
 		return angle + 180;
+	}
+
+	private void Update() {
 	}
 }
