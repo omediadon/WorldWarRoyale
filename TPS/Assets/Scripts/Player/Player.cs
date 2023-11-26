@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using Framework;
+using UnityEngine;
 
+[RequireComponent(typeof(InputController))]
+[RequireComponent(typeof(AudioController))]
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerStates))]
 [RequireComponent(typeof(PlayerHealth))]
@@ -15,78 +18,70 @@ public class Player : MonoBehaviour {
 	SoldierPro settings = null;
 	[Header("Mouse controls")]
 	[SerializeField]
-	MouseInput mouseControl = new MouseInput();
+    private MouseInput mouseControl = new MouseInput();
 	[SerializeField]
 	AudioController footStepsAudio = null;
 
 	public PlayerAim playerAim;
 
-	private PlayerShoot m_PlayerShoot;
+	private PlayerShoot _mPlayerShoot;
 	public PlayerShoot PlayerShoot {
 		get {
-			if(m_PlayerShoot == null)
-				m_PlayerShoot = GetComponent<PlayerShoot>();
-			return m_PlayerShoot;
+			if(_mPlayerShoot == null)
+				_mPlayerShoot = GetComponent<PlayerShoot>();
+			return _mPlayerShoot;
 		}
 	}
 
-	private CharacterController m_MoveController;
+	private CharacterController _mMoveController;
 	private CharacterController MoveController {
 		get {
-			if(m_MoveController == null) {
-				m_MoveController = GetComponent<CharacterController>();
+			if(_mMoveController == null) {
+				_mMoveController = GetComponent<CharacterController>();
 			}
-			return m_MoveController;
+			return _mMoveController;
 		}
 	}
 
-	private InputController inputController;
-	Vector2 mouseInput;
+	private InputController _inputController;
+    private Vector2 _mouseInput;
 
-	private PlayerStates m_PlayerState;
+	private PlayerStates _mPlayerState;
 	public PlayerStates PlayerState {
 		get {
-			if(m_PlayerState == null) {
-				m_PlayerState = GetComponent<PlayerStates>();
+			if(_mPlayerState == null) {
+				_mPlayerState = GetComponent<PlayerStates>();
 			}
 
-			return m_PlayerState;
+			return _mPlayerState;
 		}
 	}
 
 	public PlayerHealth PlayerHealth {
 		get {
-			if(_PlayerHealth == null) {
+			if(_playerHealth == null) {
 				PlayerHealth = GetComponent<PlayerHealth>();
 			}
-			return _PlayerHealth;
+			return _playerHealth;
 		}
-		set {
-			if(_PlayerHealth != value) {
-				_PlayerHealth = value;
+        set {
+			if(!Equals(_playerHealth, value)) {
+				_playerHealth = value;
 			}
 		}
 	}
-	private PlayerHealth _PlayerHealth;
-	private bool isInCover = false;
+	private PlayerHealth _playerHealth;
 
 	// Start is called before the first frame update
-	void Awake() {
-		inputController = GameManager.Instance.InputController;
+    private void Awake() {
+		_inputController = GameManager.Instance.InputController;
 		GameManager.Instance.LocalPlayer = this;
 		if(mouseControl.lockMouse) {
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 		}
-		GameManager.Instance.EventBus.AddListener("CoverToggle", new EventBus.EventListener() {
-			Method = toggleCover,
-			IsSingleShot = false
-		});
 	}
 
-	void toggleCover() {
-		isInCover = !isInCover;
-	}
 
 	// Update is called once per frame
 	void Update() {
@@ -98,32 +93,30 @@ public class Player : MonoBehaviour {
 		Look();
 	}
 
-	void Look() {
-		mouseInput.x = Mathf.Lerp(mouseInput.x, inputController.mouseInput.x, 1f / mouseControl.damping.x);
-		mouseInput.y = Mathf.Lerp(mouseInput.y, inputController.mouseInput.y, 1f / mouseControl.damping.y);
+    private void Look() {
+		_mouseInput.x = Mathf.Lerp(_mouseInput.x, _inputController.mouseInput.x, 1f / mouseControl.damping.x);
+		_mouseInput.y = Mathf.Lerp(_mouseInput.y, _inputController.mouseInput.y, 1f / mouseControl.damping.y);
 
-		transform.Rotate(Vector3.up * mouseInput.x * mouseControl.sensetivity.x);
+		transform.Rotate(Vector3.up * (_mouseInput.x * mouseControl.sensetivity.x));
 
-		playerAim.SetRotation(mouseInput.y * mouseControl.sensetivity.y);
+		playerAim.SetRotation(_mouseInput.y * mouseControl.sensetivity.y);
 	}
 
-	void Move() {
-		float moveSpeed = settings.WalkSpeed;
+    private void Move() {
+		var moveSpeed = settings.WalkSpeed;
 
-		if(inputController.IsSprinting) {
+		if(_inputController.IsSprinting) {
 			moveSpeed = settings.SprintSpeed;
 		}
-		if(isInCover) {
-			moveSpeed = settings.WalkSpeed;
-		}
 
-		Vector2 direction = new Vector2(inputController.vertical * moveSpeed, inputController.horizontal * moveSpeed);
+		Vector2 direction = new Vector2(_inputController.vertical * moveSpeed, _inputController.horizontal * moveSpeed);
 
 		if(direction != Vector2.zero) {
 			footStepsAudio.Play();
 		}
 
-		MoveController.SimpleMove(transform.forward * direction.x * settings.SpeedFactor + transform.right * direction.y * settings.SpeedFactor);
+        var transform1 = transform;
+        MoveController.SimpleMove(transform1.forward * (direction.x * settings.SpeedFactor) + transform1.right * (direction.y * settings.SpeedFactor));
 		//MoveController.Move(direction);
 
 	}

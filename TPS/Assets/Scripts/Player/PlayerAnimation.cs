@@ -1,4 +1,5 @@
 ﻿using System;
+using Framework;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour {
@@ -39,12 +40,12 @@ public class PlayerAnimation : MonoBehaviour {
 
 	private void Awake() {
 		animator = GetComponentInChildren<Animator>();
-		GameManager.Instance.OnLocalPlayerJoinedY += this.Instance_OnLocalPlayerJoinedY;
+		GameManager.Instance.OnLocalPlayerJoinedY += this.Instance_OnLocalPlayerJoined;
 		inputController = GameManager.Instance.InputController;
 		
 	}
 
-	private void Instance_OnLocalPlayerJoinedY(Player obj) {
+	private void Instance_OnLocalPlayerJoined(Player obj) {
 		PlayerState = GameManager.Instance.LocalPlayer.PlayerState;
 	}
 
@@ -55,9 +56,6 @@ public class PlayerAnimation : MonoBehaviour {
 		animator.SetBool("IsWalking", !inputController.IsSprinting);
 
 		animator.SetFloat("AimAngle", PlayerAim.GetAngle());
-		if(PlayerState != null) {
-			animator.SetBool("IsInCover", PlayerState.MoveState == PlayerStates.EMoveState.COVER);
-		}
 		
 	}
 }

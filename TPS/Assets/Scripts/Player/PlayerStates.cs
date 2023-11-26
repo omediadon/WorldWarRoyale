@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Framework;
+using UnityEngine;
 
 public class PlayerStates : MonoBehaviour {
 	public enum EMoveState {
@@ -6,7 +7,6 @@ public class PlayerStates : MonoBehaviour {
 		RUNNING,
 		SPRINTING,
 		CROUCHING,
-		COVER
 	}
 
 	public enum EWeaponState {
@@ -20,7 +20,6 @@ public class PlayerStates : MonoBehaviour {
 	public EWeaponState WeaponState;
 
 	private InputController m_InputController;
-	private bool  isInCover = false;
 
 	public InputController InputController {
 		get {
@@ -49,7 +48,8 @@ public class PlayerStates : MonoBehaviour {
 		}
 
 	}
-	void SetMoveState() {
+
+    private void SetMoveState() {
 		MoveState = EMoveState.RUNNING;
 
 		if(InputController.IsSprinting) {
@@ -64,19 +64,10 @@ public class PlayerStates : MonoBehaviour {
 			MoveState = EMoveState.CROUCHING;
 		}
 
-		if(isInCover) {
-			MoveState = EMoveState.COVER;
-		}
 	}
 
 	private void Awake() {
-		GameManager.Instance.EventBus.AddListener("CoverToggle", new EventBus.EventListener() {
-			Method = toggleCover,
-			IsSingleShot = false
-		});
+		
 	}
 
-	void toggleCover() {
-		isInCover = !isInCover;
-	}
 }
