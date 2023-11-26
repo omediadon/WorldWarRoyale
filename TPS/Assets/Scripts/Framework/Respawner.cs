@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Framework;
+using UnityEngine;
 
 public class Respawner : MonoBehaviour {
 	public void Despawn(GameObject go, float inSeconds) {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Framework;
+using UnityEngine;
 
 [RequireComponent(typeof(EnemyPlayer))]
 public class EnemyShoot : WeaponController {

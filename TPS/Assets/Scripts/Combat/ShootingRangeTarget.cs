@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Framework;
+using UnityEngine;
 
 public class ShootingRangeTarget : Distructible {
 	[SerializeField] float rotationSpeed = 1;

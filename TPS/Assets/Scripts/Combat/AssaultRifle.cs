@@ -1,4 +1,6 @@
-﻿public class AssaultRifle : Shooter {
+﻿using Framework;
+
+public class AssaultRifle : Shooter {
 	public override void Fire() {
 		base.Fire();
 
